@@ -14,7 +14,7 @@
   --terracotta-dark: #96502F;
   --btn: #3D4A2E;
   --btn-hover: #2F3A22;
-  --card: #EBE6D9;
+  --card: #FFFFFF;
   --card-border: 1px solid rgba(42, 42, 36, 0.06);
   --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   --text: #2A2A24;
@@ -103,9 +103,31 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 .btn:hover { background: var(--btn-hover); color: var(--bg); transform: translateY(-1px); }
 .btn svg { flex-shrink: 0; }
 
-/* Primary CTAs share the deep olive */
-.btn--olive { background: var(--btn); box-shadow: var(--shadow-btn); }
-.btn--olive:hover { background: var(--btn-hover); color: var(--bg); }
+/* Primary CTAs share the deep olive, styled as a generous pill */
+.btn--olive {
+  background: var(--btn);
+  padding: 18px 48px;
+  font-size: 17px;
+  box-shadow: 0 4px 24px rgba(92, 107, 69, 0.25);
+}
+.btn--olive:hover {
+  background: var(--olive);
+  color: var(--bg);
+  box-shadow: 0 8px 34px rgba(92, 107, 69, 0.35);
+}
+
+/* Compact round icon button (e.g. navbar WhatsApp) */
+.btn--icon-round {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--olive);
+  color: #FFFFFF;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+.btn--icon-round:hover { background: var(--accent-dark); color: #FFFFFF; }
 
 /* Secondary: outlined olive */
 .btn--outline {
@@ -188,6 +210,7 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 }
 
 .header .btn { padding: 10px 20px; font-size: 14px; }
+.header .btn--icon-round { padding: 0; width: 40px; height: 40px; }
 
 @media (min-width: 900px) {
   .header__nav {
@@ -218,35 +241,15 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 .hero__cta { margin: 20px 0 4px; }
 
 .hero__figure { text-align: center; }
-/* Wrapper carries the sizing (svg width:100% resolves against it) and anchors the badge */
+/* Wrapper carries the sizing (svg width:100% resolves against it) */
 .hero__figure-inner {
   position: relative;
   display: block;
-  /* Panoramic frame (viewBox 1200x420 = 2.857 ratio) */
-  width: min(100%, calc((100vh - 300px) * 2.857), 1200px);
+  /* Panoramic frame (viewBox 1200x490 = 2.449 ratio) */
+  width: min(100%, calc((100vh - 300px) * 2.449), 1200px);
   margin: 0 auto;
 }
 .hero__figure svg { display: block; width: 100%; height: auto; }
-
-.hero__badge {
-  position: absolute;
-  right: 6%;
-  bottom: 10%;
-  background: rgba(243, 239, 230, 0.94);
-  backdrop-filter: blur(4px);
-  border-radius: var(--radius-sm);
-  padding: 12px 20px;
-  text-align: left;
-  box-shadow: 0 8px 24px rgba(44, 42, 36, 0.18);
-}
-.hero__badge-score { font-family: var(--font-serif); font-size: 20px; color: var(--heading); }
-.hero__badge-label {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--terracotta);
-  font-weight: 600;
-}
 
 /* ==========================================================================
    3. Gallery — asymmetric preview grid + lightbox
@@ -446,13 +449,15 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 }
 
 .amenity {
-  background: var(--card);
+  background: #FFFFFF;
   border: var(--card-border);
   box-shadow: var(--card-shadow);
   border-radius: 20px;
-  padding: 24px;
+  padding: 20px;
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 14px;
   font-size: 14px;
   font-weight: 500;
