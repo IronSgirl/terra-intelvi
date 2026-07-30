@@ -8,6 +8,7 @@
   --bg: #FAFAFA;
   --olive-deep: #3D4A2E;
   --olive: #5C6B45;
+  --olive-light: #6B7A4A;
   --accent: #5C6B45;
   --accent-dark: #4A573A;
   --terracotta: #B06A4A;
@@ -106,7 +107,7 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 /* Primary CTAs share the deep olive, styled as a generous pill */
 .btn--olive {
   background: var(--btn);
-  padding: 14px 56px;
+  padding: 14px 36px;
   font-size: 17px;
   white-space: nowrap;
   box-shadow: 0 4px 24px rgba(92, 107, 69, 0.25);
@@ -118,18 +119,21 @@ section.container { margin: 0 auto; padding: 96px 48px; }
   box-shadow: 0 8px 34px rgba(92, 107, 69, 0.35);
 }
 
-/* Compact round icon button (e.g. navbar WhatsApp) */
+/* Compact round icon button (e.g. navbar WhatsApp).
+   gap:0 + justify-content keep the glyph optically centred in the circle. */
 .btn--icon-round {
   width: 40px;
   height: 40px;
   padding: 0;
+  gap: 0;
+  justify-content: center;
   border-radius: 50%;
-  background: var(--olive);
+  background: var(--olive-light);
   color: #FFFFFF;
   box-shadow: none;
   flex-shrink: 0;
 }
-.btn--icon-round:hover { background: var(--accent-dark); color: #FFFFFF; }
+.btn--icon-round:hover { background: var(--olive); color: #FFFFFF; }
 
 /* Secondary: outlined olive */
 .btn--outline {
@@ -143,6 +147,19 @@ section.container { margin: 0 auto; padding: 96px 48px; }
   color: var(--olive-deep);
   border-color: var(--olive-deep);
   transform: translateY(-1px);
+}
+
+/* Secondary on photo backgrounds: outlined white, reads below the main CTA */
+.btn--ghost-light {
+  background: transparent;
+  color: #FFFFFF;
+  border: 1.5px solid #FFFFFF;
+  box-shadow: none;
+}
+.btn--ghost-light:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+  border-color: #FFFFFF;
 }
 
 /* ---------- Scroll animation ---------- */
@@ -543,6 +560,13 @@ section.container { margin: 0 auto; padding: 96px 48px; }
   color: var(--accent);
 }
 .review-card p { margin: 0; font-size: 15px; }
+/* Long reviews are clipped so all three cards stay the same height */
+.review-card p.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .review-card footer { margin-top: auto; }
 .review-card__name { font-weight: 600; font-size: 14px; }
 .review-card__origin { font-size: 13px; color: var(--faint); }
@@ -568,6 +592,7 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 .cta__inner { position: relative; padding: 88px 24px; }
 .cta h2 { font-size: clamp(36px, 5vw, 52px); color: #F3EFE6; margin-bottom: 16px; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3); }
 .cta p { color: #F3EFE6; margin: 0 0 36px; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3); }
+.cta__actions { display: flex; flex-direction: column; align-items: center; gap: 14px; }
 
 @media (min-width: 900px) { .cta__inner { padding: 120px 64px; } }
 
