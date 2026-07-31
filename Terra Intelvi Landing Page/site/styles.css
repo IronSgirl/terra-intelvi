@@ -1,35 +1,37 @@
 /* ==========================================================================
    Terra Intelvi — styles.css
-   Mobile-first. 8px spacing grid. Modular type scale.
+   Editorial / travel-magazine visual language.
+   Three colours only: warm paper, deep ink, one clay accent.
+   Mobile-first. 8px spacing grid.
    ========================================================================== */
 
 /* ---------- Design tokens ---------- */
 :root {
-  --bg: #FAFAFA;
-  --olive-deep: #3D4A2E;
-  --olive: #5C6B45;
-  --olive-light: #6B7A4A;
-  --accent: #5C6B45;
-  --accent-dark: #4A573A;
-  --terracotta: #B06A4A;
-  --terracotta-dark: #96502F;
-  --btn: #3D4A2E;
-  --btn-hover: #2F3A22;
-  --card: #FFFFFF;
-  --card-border: 1px solid rgba(42, 42, 36, 0.06);
-  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  --text: #2A2A24;
-  --ink: #2A2A24;
-  --heading: #2A2A24;
-  --muted: #6B665A;
-  --faint: #8A8474;
-  --line: rgba(92, 107, 69, 0.3);
-  --radius: 24px;
-  --radius-sm: 16px;
-  --shadow-soft: 0 2px 10px rgba(44, 42, 36, 0.06);
-  --shadow-btn: 0 6px 16px rgba(61, 74, 46, 0.24);
+  /* Palette */
+  --paper: #F5F1EA;          /* warm paper base — never pure white */
+  --ink: #2B2621;            /* deep warm brown-black — never pure black */
+  --clay: #B5654A;           /* weathered terracotta — the one accent */
+  --clay-deep: #9A5138;      /* accent, pressed/hover state */
+  --card: #EFE7DB;           /* barely darker than paper, for card fills */
+  --hairline: rgba(43, 38, 33, 0.12);
+  --whatsapp: #25D366;       /* the one green allowed on the page */
+
+  /* Ink at reduced strength — softness without a second grey */
+  --ink-soft: rgba(43, 38, 33, 0.78);
+  --ink-faint: rgba(43, 38, 33, 0.52);
+
+  /* Shape */
+  --radius: 14px;            /* text cards */
+  --radius-lg: 20px;         /* photos, map, large frames */
+  --section-pad: clamp(80px, 12vh, 140px);
+
+  /* Only photographs cast a shadow. Text surfaces never do. */
+  --shadow-photo: 0 26px 50px -30px rgba(43, 38, 33, 0.5);
+  --shadow-btn: 0 8px 18px -10px rgba(154, 81, 56, 0.75);
+
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* ---------- Reset & base ---------- */
@@ -39,30 +41,55 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--paper);
+  color: var(--ink-soft);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
 img { display: block; max-width: 100%; }
 
-a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
-a:hover { color: var(--heading); }
+a { color: var(--ink); text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: var(--clay); }
 
 h1, h2, h3 {
   font-family: var(--font-serif);
-  font-weight: 500;
-  color: var(--heading);
-  line-height: 1.12;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.14;
   margin: 0;
   text-wrap: balance;
 }
 
+/* Italic accents inside headings — one word, set in clay */
+h1 em, h2 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--clay);
+}
 
-::selection { background: var(--accent); color: var(--bg); }
+/* Monospace section number: "01 —" */
+.section-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--clay);
+  margin-bottom: 20px;
+}
+
+::selection { background: var(--clay); color: var(--paper); }
+
+/* Hairline rhythm between major sections */
+.rule {
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--hairline);
+}
 
 /* ---------- Layout container ---------- */
 .container {
@@ -77,110 +104,104 @@ h1, h2, h3 {
    Uses section.container so it outranks the .container padding reset.
    margin: 0 auto (not margin: 0) so it doesn't cancel the centering
    margins .container already sets. */
-section.container { margin: 0 auto; padding: 96px 48px; }
+section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 @media (max-width: 719px) {
   .container { padding: 0 24px; }
-  section.container { padding: 72px 24px; }
+  section.container { padding: var(--section-pad) 24px; }
 }
-.hero.container { padding-top: 24px; }
+.hero.container { padding-top: 32px; padding-bottom: clamp(56px, 8vh, 96px); }
 
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: var(--btn);
-  color: var(--bg);
+  gap: 9px;
+  background: var(--clay);
+  color: var(--paper);
   font-family: var(--font-sans);
   font-size: 15px;
-  font-weight: 600;
-  padding: 14px 28px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 13px 30px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
   box-shadow: var(--shadow-btn);
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
-.btn:hover { background: var(--btn-hover); color: var(--bg); transform: translateY(-1px); }
+.btn:hover { background: var(--clay-deep); color: var(--paper); }
 .btn svg { flex-shrink: 0; }
 
-/* Hero CTA: outlined pill — light on the white background, fills olive on hover */
-.btn--olive {
-  background: transparent;
-  color: #2A2A24;
-  border: 1.5px solid #2A2A24;
-  padding: 14px 32px;
-  font-size: 17px;
+/* Hero CTA: solid clay pill, compact */
+.btn--clay {
+  background: var(--clay);
+  color: var(--paper);
+  padding: 13px 30px;
+  font-size: 15px;
   white-space: nowrap;
-  box-shadow: none;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-}
-.btn--olive:hover {
-  background: var(--olive-deep);
-  color: #FFFFFF;
-  border-color: var(--olive-deep);
-  box-shadow: none;
 }
 
-/* Compact round icon button (e.g. navbar WhatsApp).
-   gap:0 + justify-content keep the glyph optically centred in the circle. */
+/* Compact round icon button (navbar WhatsApp).
+   gap:0 + justify-content keep the glyph optically centred in the circle.
+   The glyph keeps WhatsApp's own green — the only green on the page. */
 .btn--icon-round {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   padding: 0;
   gap: 0;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: transparent;
-  color: #2A2A24;
-  border: 1.5px solid #2A2A24;
+  color: var(--whatsapp);
+  border: 1px solid var(--hairline);
   box-shadow: none;
   flex-shrink: 0;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: border-color 0.4s ease, background 0.4s ease;
 }
 /* block display removes the inline baseline gap, so the glyph sits dead centre */
 .btn--icon-round svg { display: block; }
-.btn--icon-round:hover { background: var(--olive-deep); color: #FFFFFF; border-color: var(--olive-deep); }
+.btn--icon-round:hover { background: transparent; color: var(--whatsapp); border-color: var(--clay); }
 
-/* Secondary: outlined olive */
+/* Secondary: thin clay outline */
 .btn--outline {
   background: transparent;
-  color: var(--olive);
-  border: 1.5px solid var(--olive);
+  color: var(--clay);
+  border: 1px solid var(--clay);
   box-shadow: none;
 }
 .btn--outline:hover {
-  background: rgba(92, 107, 69, 0.08);
-  color: var(--olive-deep);
-  border-color: var(--olive-deep);
-  transform: translateY(-1px);
+  background: transparent;
+  color: var(--clay-deep);
+  border-color: var(--clay-deep);
 }
 
-/* Secondary on photo backgrounds: outlined white, reads below the main CTA */
+/* Secondary on photo backgrounds: thin paper outline, reads below the main CTA */
 .btn--ghost-light {
   background: transparent;
-  color: #FFFFFF;
-  border: 1.5px solid #FFFFFF;
+  color: var(--paper);
+  border: 1px solid rgba(245, 241, 234, 0.6);
   box-shadow: none;
 }
 .btn--ghost-light:hover {
-  background: rgba(255, 255, 255, 0.14);
-  color: #FFFFFF;
-  border-color: #FFFFFF;
+  background: rgba(245, 241, 234, 0.1);
+  color: var(--paper);
+  border-color: var(--paper);
 }
 
-/* ---------- Scroll animation ---------- */
+/* ---------- Scroll animation — slow, restrained, no bounce ---------- */
 .fade-up {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition-delay: var(--stagger, 0ms);
 }
 .fade-up.is-visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .fade-up { opacity: 1; transform: none; transition: none; }
+  .hero__figure img { transform: none !important; }
   html { scroll-behavior: auto; }
 }
 
@@ -191,10 +212,15 @@ section.container { margin: 0 auto; padding: 96px 48px; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(250, 250, 250, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--paper);
+  border-bottom: 1px solid var(--hairline);
+  transition: background 0.4s ease;
+}
+/* Once the page has moved, let content pass under a soft blur */
+.header.is-scrolled {
+  background: rgba(245, 241, 234, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .header__inner {
@@ -202,15 +228,17 @@ section.container { margin: 0 auto; padding: 96px 48px; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 .header__brand {
   font-family: var(--font-serif);
-  font-size: 24px;
-  color: var(--heading);
+  font-size: 23px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
 }
+.header__brand:hover { color: var(--ink); }
 
 .header__nav { display: none; }
 
@@ -220,35 +248,37 @@ section.container { margin: 0 auto; padding: 96px 48px; }
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
 }
-.lang__sep { color: #B8B2A2; }
-.lang a { color: var(--faint); padding-bottom: 2px; border-bottom: 2px solid transparent; }
-.lang a.is-active { color: var(--heading); border-bottom-color: var(--accent); }
+.lang__sep { color: var(--hairline); }
+.lang a { color: var(--ink-faint); padding-bottom: 2px; border-bottom: 1px solid transparent; }
+.lang a:hover { color: var(--clay); }
+.lang a.is-active { color: var(--ink); border-bottom-color: var(--clay); }
 
 /* IT not built yet: faded, non-clickable, tooltip via title attr */
 .lang__disabled {
-  color: var(--faint);
+  color: var(--ink-faint);
   opacity: 0.45;
   cursor: default;
   padding-bottom: 2px;
-  border-bottom: 2px solid transparent;
+  border-bottom: 1px solid transparent;
 }
 
 .header .btn { padding: 10px 20px; font-size: 14px; }
-.header .btn--icon-round { padding: 0; width: 40px; height: 40px; margin-left: auto; }
+.header .btn--icon-round { padding: 0; width: 38px; height: 38px; margin-left: auto; }
 
 @media (min-width: 900px) {
   .header__nav {
     display: flex;
     gap: 40px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
   }
-  .header__nav a { color: var(--text); }
-  .header__nav a:hover { color: var(--accent); }
+  .header__nav a { color: var(--ink-soft); }
+  .header__nav a:hover { color: var(--clay); }
 }
 
 /* ==========================================================================
