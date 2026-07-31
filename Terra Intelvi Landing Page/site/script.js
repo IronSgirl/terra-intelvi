@@ -155,6 +155,8 @@
   }, { passive: true });
 
   /* ---------- Fade-in-up on scroll ---------- */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
@@ -164,7 +166,38 @@
     });
   }, { threshold: 0.12 });
 
+  /* Siblings arrive one after another, 90ms apart — enough to read as
+     sequence, not enough to read as an effect. */
+  var groups = new Map();
   document.querySelectorAll('.fade-up').forEach(function (el) {
+    var n = groups.get(el.parentNode) || 0;
+    groups.set(el.parentNode, n + 1);
+    el.style.setProperty('--stagger', Math.min(n, 5) * 90 + 'ms');
     observer.observe(el);
   });
+
+  /* ---------- Header: soft blur once the page has moved ---------- */
+  var header = document.querySelector('.header');
+  var heroImg = document.querySelector('.hero__figure-inner img');
+  var ticking = false;
+
+  function onScroll() {
+    var y = window.pageYOffset;
+    header.classList.toggle('is-scrolled', y > 8);
+    /* Very slow parallax: the photo drifts at ~6% of scroll speed, capped
+       inside the 6% overscan of its frame so no edge is ever exposed. */
+    if (heroImg && !reduceMotion) {
+      var shift = Math.max(-40, Math.min(40, y * 0.06));
+      heroImg.style.transform = 'translate3d(0,' + shift + 'px,0)';
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(onScroll);
+    }
+  }, { passive: true });
+  onScroll();
 })();

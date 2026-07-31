@@ -45,60 +45,47 @@
 
     <!-- ================= 2. HERO ================= -->
     <section class="hero container" aria-label="Terra Intelvi">
-      <h1 class="hero__title">A quiet mountain home<br>between two lakes</h1>
+      <h1 class="hero__title">A <em>quiet</em> mountain home<br>between two lakes</h1>
       <p class="hero__meta">Valle d'Intelvi &nbsp;&middot;&nbsp; 2 bedrooms &nbsp;&middot;&nbsp; up to 4 guests &nbsp;&middot;&nbsp; 120 m&sup2;</p>
       <div class="hero__cta">
-        <a class="btn btn--olive" href="https://wa.me/393281196434" target="_blank" rel="noopener">
+        <a class="btn btn--clay" href="https://wa.me/393281196434" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.6 4.3c1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3Z"/></svg>
           Chat with your host
         </a>
       </div>
       <div class="hero__figure">
+        <!-- Clean panoramic frame with a gentle arch on the top edge.
+             The photo is oversized inside it so the slow scroll parallax
+             (script.js) never exposes an edge. -->
         <div class="hero__figure-inner">
-        <!-- Organic wavy frame with a slow breathing morph (SMIL, 7s loop).
-             Photo is centered both ways via xMidYMid slice. -->
-        <svg viewBox="0 0 1200 490" preserveAspectRatio="none" role="img" aria-label="Lake Como seen from the mountains above Valle d'Intelvi">
-          <defs>
-            <clipPath id="heroWave">
-              <path d="M 60,95 C 15,25 130,10 250,45 C 340,72 400,20 470,32 C 520,42 540,95 600,95 C 660,95 680,42 730,32 C 800,20 860,72 950,45 C 1070,10 1188,25 1148,95 C 1170,170 1130,215 1160,275 C 1188,340 1120,415 990,385 C 880,360 800,428 670,398 C 540,368 480,432 350,402 C 220,372 130,420 72,352 C 22,290 78,240 44,190 C 18,140 22,140 60,95 Z">
-                <animate attributeName="d" dur="7s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"
-                  values="M 60,95 C 15,25 130,10 250,45 C 340,72 400,20 470,32 C 520,42 540,95 600,95 C 660,95 680,42 730,32 C 800,20 860,72 950,45 C 1070,10 1188,25 1148,95 C 1170,170 1130,215 1160,275 C 1188,340 1120,415 990,385 C 880,360 800,428 670,398 C 540,368 480,432 350,402 C 220,372 130,420 72,352 C 22,290 78,240 44,190 C 18,140 22,140 60,95 Z;
-                          M 54,104 C 20,32 142,22 258,38 C 346,62 404,28 472,26 C 522,38 542,90 600,90 C 658,90 682,38 732,26 C 802,28 856,62 944,38 C 1062,22 1182,32 1152,104 C 1176,176 1140,222 1156,282 C 1182,348 1112,406 984,392 C 872,366 792,418 662,404 C 532,376 472,424 344,396 C 216,366 138,412 80,344 C 30,282 84,232 50,182 C 24,136 16,148 54,104 Z;
-                          M 60,95 C 15,25 130,10 250,45 C 340,72 400,20 470,32 C 520,42 540,95 600,95 C 660,95 680,42 730,32 C 800,20 860,72 950,45 C 1070,10 1188,25 1148,95 C 1170,170 1130,215 1160,275 C 1188,340 1120,415 990,385 C 880,360 800,428 670,398 C 540,368 480,432 350,402 C 220,372 130,420 72,352 C 22,290 78,240 44,190 C 18,140 22,140 60,95 Z"></animate>
-              </path>
-            </clipPath>
-          </defs>
-          <!-- The frame is drawn 10% wider than its 1200x490 viewBox, so the outer svg
-               stretches x by 1.1. Pre-squeezing the photo by the same factor keeps it
-               undistorted — it simply shows a wider crop. -->
-          <g clip-path="url(#heroWave)">
-            <image href="images/stock/hero-lake.jpg" width="1320" height="490" transform="scale(0.909091 1)" preserveAspectRatio="xMidYMid slice"></image>
-          </g>
-        </svg>
+          <img src="images/stock/hero-lake.jpg" alt="Lake Como seen from the mountains above Valle d'Intelvi">
         </div>
       </div>
     </section>
 
+    <hr class="rule">
+
     <!-- ================= 3. GALLERY ================= -->
     <section id="gallery" class="container">
       <div class="section-head fade-up">
+        <span class="section-num">01 &mdash;</span>
         <h2>Step inside</h2>
         <p>A duplex apartment with room to breathe. Tap a photo to browse.</p>
       </div>
-      <div class="gallery__preview fade-up">
-        <button class="gallery__tile gallery__tile--large" data-photo="Kitchen-1.jpg" aria-label="Open photo gallery, kitchen">
+      <div class="gallery__preview">
+        <button class="gallery__tile gallery__tile--large fade-up" data-photo="Kitchen-1.jpg" aria-label="Open photo gallery, kitchen">
           <img src="images/apartment/Kitchen-1.jpg" alt="Fully equipped kitchen" loading="lazy">
         </button>
-        <button class="gallery__tile" data-photo="Living-dining-1.jpg" aria-label="Open photo gallery, living and dining">
+        <button class="gallery__tile fade-up" data-photo="Living-dining-1.jpg" aria-label="Open photo gallery, living and dining">
           <img src="images/apartment/Living-dining-1.jpg" alt="Living and dining room" loading="lazy">
         </button>
-        <button class="gallery__tile" data-photo="Bedrooms-1.jpg" aria-label="Open photo gallery, bedrooms">
+        <button class="gallery__tile fade-up" data-photo="Bedrooms-1.jpg" aria-label="Open photo gallery, bedrooms">
           <img src="images/apartment/Bedrooms-1.jpg" alt="Restful bedroom" loading="lazy">
         </button>
-        <button class="gallery__tile" data-photo="Spiral-staircase.jpg" aria-label="Open photo gallery, spiral staircase">
+        <button class="gallery__tile fade-up" data-photo="Spiral-staircase.jpg" aria-label="Open photo gallery, spiral staircase">
           <img src="images/apartment/Spiral-staircase.jpg" alt="Spiral staircase" loading="lazy">
         </button>
-        <button class="gallery__tile" data-photo="Bathroom-2.jpg" aria-label="Open photo gallery, bathroom">
+        <button class="gallery__tile fade-up" data-photo="Bathroom-2.jpg" aria-label="Open photo gallery, bathroom">
           <img src="images/apartment/Bathroom-2.jpg" alt="Modern bathroom" loading="lazy">
         </button>
       </div>
@@ -108,27 +95,29 @@
       </div>
       <div class="gallery__more fade-up">
         <button class="btn btn--outline" id="view-all-photos" aria-expanded="false">
-          <svg class="icon-grid" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
-          <svg class="icon-up" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+          <svg class="icon-grid" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+          <svg class="icon-up" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
           <span id="view-all-label">View all 18 photos</span>
         </button>
       </div>
     </section>
 
+    <hr class="rule">
+
     <!-- ================= 4. ABOUT ================= -->
     <section id="about" class="container">
       <div class="about__grid">
         <div class="about__text fade-up">
-          <h2>A home in the green, made for slowing down</h2>
+          <h2>A home in the <em>green</em>, made for slowing down</h2>
           <p>Terra Intelvi is our family apartment in the hills of Valle d'Intelvi, halfway between Lake Como and Lake Lugano. Mornings here start with birdsong and mountain air. Evenings end on the sofa after a day of lakes, trails and long lunches.</p>
           <p>It's not a hotel. It's a real home, cared for and quietly comfortable, with everything a family of four needs to settle in for a week or more.</p>
         </div>
-        <div class="facts fade-up">
-          <div class="fact-card"><div class="fact-card__value">120 m&sup2;</div><div class="fact-card__label">across two floors</div></div>
-          <div class="fact-card"><div class="fact-card__value">2 bedrooms</div><div class="fact-card__label">up to 4 guests</div></div>
-          <div class="fact-card"><div class="fact-card__value">1 bathroom</div><div class="fact-card__label">modern &amp; bright</div></div>
-          <div class="fact-card"><div class="fact-card__value">Self check-in</div><div class="fact-card__label">arrive on your time</div></div>
-          <div class="tags">
+        <div class="facts">
+          <div class="fact-card fade-up"><div class="fact-card__value">120 m&sup2;</div><div class="fact-card__label">across two floors</div></div>
+          <div class="fact-card fade-up"><div class="fact-card__value">2 bedrooms</div><div class="fact-card__label">up to 4 guests</div></div>
+          <div class="fact-card fade-up"><div class="fact-card__value">1 bathroom</div><div class="fact-card__label">modern &amp; bright</div></div>
+          <div class="fact-card fade-up"><div class="fact-card__value">Self check-in</div><div class="fact-card__label">arrive on your time</div></div>
+          <div class="tags fade-up">
             <span>Free parking</span><span class="dot">&middot;</span>
             <span>Non-smoking</span><span class="dot">&middot;</span>
             <span>Ideal for families</span>
@@ -137,28 +126,36 @@
       </div>
     </section>
 
+    <hr class="rule">
+
     <!-- ================= 5. AMENITIES ================= -->
     <section id="amenities" class="container">
-      <div class="section-head fade-up"><h2>Everything you need</h2></div>
-      <div class="amenities__grid fade-up">
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg><span>Fast WiFi</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><span>Full kitchen</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg><span>Dishwasher</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg><span>Coffee machine</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg><span>Free parking</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h3"/><path d="M17 6h.01"/><rect width="18" height="20" x="3" y="2" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></svg><span>Washing machine</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg><span>Smart TV</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/><path d="M6 8v2"/><path d="M18 8v2"/></svg><span>Towels &amp; linens</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg><span>High chair</span></div>
-        <div class="amenity"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h13"/><path d="M18 8c0-2.5-2-2.5-2-5"/><path d="m2 2 20 20"/><path d="M21 12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-1"/><path d="M22 8c0-2.5-2-2.5-2-5"/><path d="M7 12v4"/></svg><span>Non-smoking</span></div>
+      <div class="section-head fade-up">
+        <span class="section-num">02 &mdash;</span>
+        <h2>Everything you need</h2>
+      </div>
+      <div class="amenities__list">
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg><span>Fast WiFi</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><span>Full kitchen</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg><span>Dishwasher</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg><span>Coffee machine</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg><span>Free parking</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h3"/><path d="M17 6h.01"/><rect width="18" height="20" x="3" y="2" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></svg><span>Washing machine</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg><span>Smart TV</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/><path d="M6 8v2"/><path d="M18 8v2"/></svg><span>Towels &amp; linens</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg><span>High chair</span></div>
+        <div class="amenity fade-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h13"/><path d="M18 8c0-2.5-2-2.5-2-5"/><path d="m2 2 20 20"/><path d="M21 12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-1"/><path d="M22 8c0-2.5-2-2.5-2-5"/><path d="M7 12v4"/></svg><span>Non-smoking</span></div>
       </div>
     </section>
+
+    <hr class="rule">
 
     <!-- ================= 6. LOCATION ================= -->
     <section id="location" class="container">
       <div class="location__grid">
         <div class="location__text fade-up">
-          <h2>In the green Valle d'Intelvi, between Lake Como and Lake Lugano</h2>
+          <span class="section-num">03 &mdash;</span>
+          <h2>In the <em>green</em> Valle d'Intelvi, between Lake Como and Lake Lugano</h2>
           <p>The valley sits quietly above both lakes. Close enough for a morning swim in one and an evening stroll along the other, yet far enough to keep the crowds away.</p>
           <div class="location__list">
             <div class="location__item"><span>Lake Como &amp; Argegno</span><span>15 min by car</span></div>
@@ -178,32 +175,38 @@
       </div>
     </section>
 
+    <hr class="rule">
+
     <!-- ================= 7. REVIEWS ================= -->
     <section id="reviews" class="container">
       <div class="reviews__head fade-up">
+        <span class="section-num">04 &mdash;</span>
         <h2>Guests keep coming back</h2>
         <span class="reviews__score">10/10 &middot; Exceptional</span>
       </div>
-      <div class="reviews__grid">
-        <article class="review-card fade-up">
-          <div class="review-card__mark">&ldquo;</div>
-          <p class="is-clamped">Incredible apartments on Lake Como, a real earthly paradise. What strikes me most is our host, extremely kind and attentive, creating an atmosphere of genuine family comfort. The apartments are very comfortable and the bed is a true delight, extremely soft, offering perfect rest after an intense day. And of course, the breathtaking panoramas of Lake Como. Mountains, water and nature, like a painting, make the morning here truly magical.</p>
-          <footer><div class="review-card__name">Iryna</div><div class="review-card__origin">Ukraine</div></footer>
+      <div class="reviews__spread">
+        <!-- Lead review, set as a pull-quote -->
+        <article class="review-lead fade-up">
+          <div class="review-lead__mark">&ldquo;</div>
+          <p>Incredible apartments on Lake Como, a real earthly paradise. What strikes me most is our host, extremely kind and attentive, creating an atmosphere of genuine family comfort. The apartments are very comfortable and the bed is a true delight, extremely soft, offering perfect rest after an intense day. And of course, the breathtaking panoramas of Lake Como. Mountains, water and nature, like a painting, make the morning here truly magical.</p>
+          <footer><span class="review-lead__name">Iryna</span><span class="review-lead__origin">Ukraine</span></footer>
         </article>
-        <!-- PLACEHOLDER REVIEW -->
-        <article class="review-card fade-up">
-          <div class="review-card__mark">&ldquo;</div>
-          <p>Waking up to mountain views, coffee on the balcony, then down to Lake Como in fifteen minutes. The apartment is even lovelier than the photos.</p>
-          <footer><div class="review-card__name">Jonas &amp; Marta</div><div class="review-card__origin">Hamburg</div></footer>
-        </article>
-        <!-- PLACEHOLDER REVIEW -->
-        <article class="review-card fade-up">
-          <div class="review-card__mark">&ldquo;</div>
-          <p>Spacious, spotless and genuinely homey. The kids loved the spiral staircase; we loved the quiet. Two lakes in one holiday. Perfect.</p>
-          <footer><div class="review-card__name">Sophie</div><div class="review-card__origin">Amsterdam</div></footer>
-        </article>
+        <div class="reviews__side">
+          <!-- PLACEHOLDER REVIEW -->
+          <article class="review-note fade-up">
+            <p>Waking up to mountain views, coffee on the balcony, then down to Lake Como in fifteen minutes. The apartment is even lovelier than the photos.</p>
+            <footer><span class="review-note__name">Jonas &amp; Marta</span><span class="review-note__origin">Hamburg</span></footer>
+          </article>
+          <!-- PLACEHOLDER REVIEW -->
+          <article class="review-note fade-up">
+            <p>Spacious, spotless and genuinely homey. The kids loved the spiral staircase; we loved the quiet. Two lakes in one holiday. Perfect.</p>
+            <footer><span class="review-note__name">Sophie</span><span class="review-note__origin">Amsterdam</span></footer>
+          </article>
+        </div>
       </div>
     </section>
+
+    <hr class="rule">
 
     <!-- ================= 8. CLOSING CTA ================= -->
     <section id="book" class="container">
@@ -247,13 +250,13 @@
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
     <span class="lightbox__counter">1 / 18</span>
     <button class="lightbox__btn lightbox__close" aria-label="Close">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
     <button class="lightbox__btn lightbox__prev" aria-label="Previous photo">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
     </button>
     <button class="lightbox__btn lightbox__next" aria-label="Next photo">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
     </button>
     <img class="lightbox__img" alt="">
   </div>
