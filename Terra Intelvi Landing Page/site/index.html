@@ -49,7 +49,7 @@
       <p class="hero__meta">Valle d'Intelvi &nbsp;&middot;&nbsp; 2 bedrooms &nbsp;&middot;&nbsp; up to 4 guests &nbsp;&middot;&nbsp; 120 m&sup2;</p>
       <div class="hero__cta">
         <a class="btn btn--olive" href="https://wa.me/393281196434" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.6 4.3c1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3Z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.6 4.3c1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3Z"/></svg>
           Chat with your host
         </a>
       </div>
@@ -57,7 +57,7 @@
         <div class="hero__figure-inner">
         <!-- Organic wavy frame with a slow breathing morph (SMIL, 7s loop).
              Photo is centered both ways via xMidYMid slice. -->
-        <svg viewBox="0 0 1200 490" role="img" aria-label="Lake Como seen from the mountains above Valle d'Intelvi">
+        <svg viewBox="0 0 1200 490" preserveAspectRatio="none" role="img" aria-label="Lake Como seen from the mountains above Valle d'Intelvi">
           <defs>
             <clipPath id="heroWave">
               <path d="M 60,95 C 15,25 130,10 250,45 C 340,72 400,20 470,32 C 520,42 540,95 600,95 C 660,95 680,42 730,32 C 800,20 860,72 950,45 C 1070,10 1188,25 1148,95 C 1170,170 1130,215 1160,275 C 1188,340 1120,415 990,385 C 880,360 800,428 670,398 C 540,368 480,432 350,402 C 220,372 130,420 72,352 C 22,290 78,240 44,190 C 18,140 22,140 60,95 Z">
@@ -68,7 +68,12 @@
               </path>
             </clipPath>
           </defs>
-          <image href="images/stock/hero-lake.jpg" width="1200" height="490" preserveAspectRatio="xMidYMid slice" clip-path="url(#heroWave)"></image>
+          <!-- The frame is drawn 10% wider than its 1200x490 viewBox, so the outer svg
+               stretches x by 1.1. Pre-squeezing the photo by the same factor keeps it
+               undistorted — it simply shows a wider crop. -->
+          <g clip-path="url(#heroWave)">
+            <image href="images/stock/hero-lake.jpg" width="1320" height="490" transform="scale(0.909091 1)" preserveAspectRatio="xMidYMid slice"></image>
+          </g>
         </svg>
         </div>
       </div>

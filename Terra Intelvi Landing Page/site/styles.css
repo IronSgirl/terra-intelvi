@@ -104,36 +104,45 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 .btn:hover { background: var(--btn-hover); color: var(--bg); transform: translateY(-1px); }
 .btn svg { flex-shrink: 0; }
 
-/* Primary CTAs share the deep olive, styled as a generous pill */
+/* Hero CTA: outlined pill — light on the white background, fills olive on hover */
 .btn--olive {
-  background: var(--btn);
-  padding: 14px 36px;
+  background: transparent;
+  color: #2A2A24;
+  border: 1.5px solid #2A2A24;
+  padding: 14px 32px;
   font-size: 17px;
   white-space: nowrap;
-  box-shadow: 0 4px 24px rgba(92, 107, 69, 0.25);
+  box-shadow: none;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
-@media (max-width: 480px) { .btn--olive { padding: 14px 32px; } }
 .btn--olive:hover {
-  background: var(--olive);
-  color: var(--bg);
-  box-shadow: 0 8px 34px rgba(92, 107, 69, 0.35);
+  background: var(--olive-deep);
+  color: #FFFFFF;
+  border-color: var(--olive-deep);
+  box-shadow: none;
 }
 
 /* Compact round icon button (e.g. navbar WhatsApp).
    gap:0 + justify-content keep the glyph optically centred in the circle. */
 .btn--icon-round {
+  display: flex;
   width: 40px;
   height: 40px;
   padding: 0;
   gap: 0;
+  align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--olive-light);
-  color: #FFFFFF;
+  background: transparent;
+  color: #2A2A24;
+  border: 1.5px solid #2A2A24;
   box-shadow: none;
   flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
-.btn--icon-round:hover { background: var(--olive); color: #FFFFFF; }
+/* block display removes the inline baseline gap, so the glyph sits dead centre */
+.btn--icon-round svg { display: block; }
+.btn--icon-round:hover { background: var(--olive-deep); color: #FFFFFF; border-color: var(--olive-deep); }
 
 /* Secondary: outlined olive */
 .btn--outline {
@@ -263,12 +272,15 @@ section.container { margin: 0 auto; padding: 96px 48px; }
 /* Wrapper carries the sizing (svg width:100% resolves against it) */
 .hero__figure-inner {
   position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* stays centred even when it breaks out of the container */
   display: block;
-  /* Panoramic frame (viewBox 1200x490 = 2.449 ratio) */
-  width: min(100%, calc((100vh - 300px) * 2.449), 1200px);
-  margin: 0 auto;
+  /* Panoramic frame, ~10% wider than the container box. The ratio widens with it
+     (2.449 -> 2.694) so the extra width costs no height. The 100vw term keeps the
+     breakout from ever causing horizontal scroll. */
+  width: min(110%, calc(100vw - 32px), calc((100vh - 300px) * 2.694), 1320px);
 }
-.hero__figure svg { display: block; width: 100%; height: auto; }
+.hero__figure svg { display: block; width: 100%; height: auto; aspect-ratio: 1320 / 490; }
 
 /* ==========================================================================
    3. Gallery — asymmetric preview grid + lightbox
