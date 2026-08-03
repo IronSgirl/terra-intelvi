@@ -24,6 +24,9 @@
   --radius: 14px;            /* text cards */
   --radius-lg: 20px;         /* photos, map, large frames */
   --section-pad: clamp(56px, 7vh, 88px);
+  /* Sticky header height: 38px control + 2 x 14px padding + 1px hairline.
+     The hero subtracts it so the two together are exactly one screen. */
+  --nav-h: 67px;
 
   /* Only photographs cast a shadow. Text surfaces never do. */
   --shadow-photo: 0 26px 50px -30px rgba(43, 38, 33, 0.5);
@@ -110,7 +113,21 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   .container { padding: 0 24px; }
   section.container { padding: var(--section-pad) 24px; }
 }
-.hero.container { padding-top: 16px; padding-bottom: clamp(40px, 5vh, 64px); }
+/* The hero owns exactly one screen: header + hero = 100vh, and everything
+   inside it (title, meta, CTA, photo) is balanced in that column.
+   align-items stays `stretch`, NOT `center`: the photo frame breaks out of the
+   container and derives its width from the figure's full width — centring the
+   items would shrink-wrap the figure and collapse that math. Horizontal
+   centring comes from .hero { text-align: center } instead. */
+.hero.container {
+  min-height: calc(100vh - var(--nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -281,8 +298,10 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
    ========================================================================== */
 .hero { text-align: center; }
 
+/* Sized so the two-line title costs ~131px, not ~165px — the single biggest
+   vertical saving in the hero. */
 .hero__title {
-  font-size: clamp(48px, 6vw, 78px);
+  font-size: clamp(40px, 5vw, 62px);
   letter-spacing: -0.015em;
   line-height: 1.06;
 }
@@ -292,32 +311,23 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   font-size: 12.5px;
   color: var(--ink-faint);
   letter-spacing: 0.1em;
-  margin: 16px 0 0;
+  margin: 12px 0 0;
 }
 
-/* One source of truth for the photo frame's width — the CTA's negative pull is
-   derived from it, so the two can never drift apart. */
-.hero { --frame-w: min(124%, calc(100vw - 32px), calc((100vh - 340px) * 2.9), 1480px); }
+/* One source of truth for the photo frame's width. The height budget below it
+   is what is left of the screen once the header, title, meta, CTA and the
+   hero's own padding are paid for — measured at ~393px on a 1440x900 laptop,
+   rounded up to 420px for headroom (longer IT strings, fallback fonts).
+   2.69 is the frame's own ratio (1320/490), so the width this term yields and
+   the max-height cap below always agree and the blob is never squashed.
+   max(320px, …) keeps the photo present on very short viewports. */
+.hero { --frame-w: min(124%, calc(100vw - 32px), max(320px, calc((100vh - 420px) * 2.69)), 1480px); }
 
-/* The CTA sits *into* the photo's lower edge rather than floating below it.
-   It comes last in the source and is pulled back up over the frame. */
-.hero__cta {
-  position: relative;
-  z-index: 2;      /* stays on top where it crosses the photo */
-  /* Under the button the blob's lower edge runs ~20.5% of the frame height
-     above the frame's bottom — on the 1320/490 frame that is 0.0761 of its
-     width. Pull the button up by that inset plus 24px, so its top half lands
-     on the photo and its bottom half on the paper below. */
-  margin: calc(-24px - 0.0761 * var(--frame-w)) 0 0;
-}
-/* The page-default clay glow vanishes against photography — over the blob the
-   button needs a real, ink-based shadow to stay legible. */
-.hero__cta .btn {
-  box-shadow: 0 14px 30px -10px rgba(43, 38, 33, 0.6), 0 2px 6px rgba(43, 38, 33, 0.18);
-}
+/* Clean paper between the meta line and the photo: no overlap, no negative
+   margin, no z-index. The default clay glow is enough here. */
+.hero__cta { margin: 24px 0 0; }
 
-/* The photo now flows normally under the heading; only the CTA overlaps it. */
-.hero__figure { text-align: center; margin-top: 32px; }
+.hero__figure { text-align: center; margin-top: 28px; }
 /* The clipPath carrier is layout-inert */
 .hero__clip { position: absolute; width: 0; height: 0; }
 /* Wrapper carries the sizing and the wavy-blob cutout */
@@ -332,6 +342,10 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
      remaining height can afford. */
   width: var(--frame-w);
   aspect-ratio: 1320 / 490;
+  /* Hard ceiling on the leftover space, matching the 420px budget above. The
+     photo can only ever fill what the text and CTA did not use, so the wavy
+     bottom edge always lands above the fold. */
+  max-height: max(180px, calc(100vh - 420px));
   /* Organic wavy blob: irregular flowing edges on all four sides.
      No radius or shadow — a clip-path would crop both anyway. */
   clip-path: url(#heroWave);
@@ -350,11 +364,13 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 }
 
 @media (max-width: 719px) {
-  .hero__figure-inner { aspect-ratio: 4 / 3; }
+  /* Phones: don't force one screen. Mobile 100vh is unreliable (the URL bar
+     changes it mid-scroll) and the taller 4:3 frame would be cropped by the
+     desktop height budget, so both constraints are lifted here. */
+  .hero.container { min-height: 0; display: block; padding-top: 20px; }
+  .hero__figure-inner { aspect-ratio: 4 / 3; max-height: none; }
   .hero__figure { margin-top: 24px; }
-  /* Same 20.5%-of-height inset, but on the taller 4:3 frame that is a larger
-     share of the width (0.205 x 0.75), so the pull grows to match. */
-  .hero__cta { margin-top: calc(-20px - 0.1538 * var(--frame-w)); }
+  .hero__cta { margin-top: 20px; }
 }
 
 /* ==========================================================================
