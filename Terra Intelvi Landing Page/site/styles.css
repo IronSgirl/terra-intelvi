@@ -191,11 +191,14 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   border-color: var(--paper);
 }
 
-/* ---------- Scroll animation — slow, restrained, no bounce ---------- */
+/* ---------- Scroll animation — a long, clearly visible rise, no bounce ----------
+   48px of travel over 1s on a decelerating curve: far enough to read as motion,
+   slow enough that it never looks like a repaint glitch. */
 .fade-up {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transform: translateY(48px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--stagger, 0ms);
 }
 .fade-up.is-visible { opacity: 1; transform: none; }
@@ -301,9 +304,29 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   margin: 16px 0 0;
 }
 
-.hero__cta { margin: 24px 0 0; }
+/* One source of truth for the photo frame's width — the figure's negative
+   pull is derived from it, so the two can never drift apart. */
+.hero { --frame-w: min(124%, calc(100vw - 32px), calc((100vh - 340px) * 2.9), 1480px); }
 
-.hero__figure { text-align: center; margin-top: clamp(28px, 4vh, 48px); }
+/* The CTA sits *into* the photo rather than floating above it */
+.hero__cta {
+  position: relative;
+  z-index: 2;      /* stays on top where it crosses the photo */
+  margin: 24px 0 -28px;
+}
+/* The page-default clay glow vanishes against photography — over the blob the
+   button needs a real, ink-based shadow to stay legible. */
+.hero__cta .btn {
+  box-shadow: 0 14px 30px -10px rgba(43, 38, 33, 0.6), 0 2px 6px rgba(43, 38, 33, 0.18);
+}
+
+/* The blob's edge is inset from the frame's top, so -28px on its own would
+   leave the button hanging in empty paper. Add the inset measured directly
+   beneath the button's outer corners — 8.81% of the frame height, i.e.
+   0.0327 of its width — so the -28px reads as a true overlap there while the
+   centre notch (19.4%, deeper) cradles the button. Adjacent negative margins
+   collapse to the deeper of the two, so this value *is* the total pull. */
+.hero__figure { text-align: center; margin-top: calc(-28px - 0.0327 * var(--frame-w)); }
 /* The clipPath carrier is layout-inert */
 .hero__clip { position: absolute; width: 0; height: 0; }
 /* Wrapper carries the sizing and the wavy-blob cutout */
@@ -311,10 +334,11 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   position: relative;
   left: 50%;
   transform: translateX(-50%); /* stays centred even when it breaks out of the container */
-  /* Panoramic frame, ~10% wider than the container box. The 100vw and 100vh terms
+  /* Panoramic frame, ~24% wider than the container box. The 100vw and 100vh terms
      keep the breakout from causing horizontal scroll or pushing past the fold —
-     the 450px term is the measured height of everything above it in the hero. */
-  width: min(110%, calc(100vw - 32px), calc((100vh - 450px) * 2.694), 1320px);
+     the 340px term is the height of everything above it once the overlap is
+     subtracted; 2.9 is the width the remaining height can afford. */
+  width: var(--frame-w);
   aspect-ratio: 1320 / 490;
   /* Organic wavy blob: irregular flowing edges on all four sides.
      No radius or shadow — a clip-path would crop both anyway. */
@@ -335,6 +359,9 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 
 @media (max-width: 719px) {
   .hero__figure-inner { aspect-ratio: 4 / 3; }
+  /* Taller 4:3 frame and a button that spans most of it, so the edge beneath
+     the button sits shallower relative to the width — a gentler pull. */
+  .hero__figure { margin-top: calc(-20px - 0.05 * var(--frame-w)); }
 }
 
 /* ==========================================================================
@@ -654,8 +681,9 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 }
 .review-lead footer {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
   margin-top: 32px;
   font-family: var(--font-mono);
   font-size: 12px;
@@ -665,16 +693,33 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 .review-lead__name { color: var(--ink); }
 .review-lead__origin { color: var(--ink-faint); }
 
+/* Name and place stay on one line; the credibility label drops beneath it */
+.review__by { display: flex; align-items: baseline; gap: 12px; }
+/* Identical on all three reviews, so none reads as the truncated one */
+.review-meta {
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  color: var(--ink-faint);
+}
+
 /* The two secondary notes: equal columns, equal weight, no cropping */
 .reviews__side { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
 /* No borders, no fills — just a rule above each note */
 .review-note { border-top: 1px solid var(--hairline); padding-top: 24px; }
-.review-note p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink-soft); }
+/* Sized up towards the lead quote — still clearly secondary, but substantial
+   enough that the shorter text reads as a complete review, not a stub. */
+.review-note p {
+  margin: 0;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.6;
+  color: var(--ink);
+}
 .review-note footer {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-top: 18px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 22px;
   font-family: var(--font-mono);
   font-size: 11.5px;
   letter-spacing: 0.14em;

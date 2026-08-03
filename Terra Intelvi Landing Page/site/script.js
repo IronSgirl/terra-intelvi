@@ -164,7 +164,10 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+    /* The negative bottom inset holds the trigger until the element is properly
+       inside the viewport, so the rise plays where it can actually be seen
+       rather than half-finished below the fold. */
+  }, { threshold: 0.1, rootMargin: '0px 0px -12% 0px' });
 
   /* Siblings arrive one after another, 90ms apart — enough to read as
      sequence, not enough to read as an effect. */
