@@ -23,7 +23,7 @@
   /* Shape */
   --radius: 14px;            /* text cards */
   --radius-lg: 20px;         /* photos, map, large frames */
-  --section-pad: clamp(80px, 12vh, 140px);
+  --section-pad: clamp(56px, 7vh, 88px);
 
   /* Only photographs cast a shadow. Text surfaces never do. */
   --shadow-photo: 0 26px 50px -30px rgba(43, 38, 33, 0.5);
@@ -70,7 +70,8 @@ h1 em, h2 em {
   color: var(--clay);
 }
 
-/* Monospace section number: "01 —" */
+/* Monospace section number: "01 —".
+   Sits tight above its heading so the two read as one unit, not two blocks. */
 .section-num {
   display: block;
   font-family: var(--font-mono);
@@ -78,7 +79,7 @@ h1 em, h2 em {
   font-weight: 400;
   letter-spacing: 0.2em;
   color: var(--clay);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 ::selection { background: var(--clay); color: var(--paper); }
@@ -109,7 +110,7 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   .container { padding: 0 24px; }
   section.container { padding: var(--section-pad) 24px; }
 }
-.hero.container { padding-top: 32px; padding-bottom: clamp(56px, 8vh, 96px); }
+.hero.container { padding-top: 16px; padding-bottom: clamp(40px, 5vh, 64px); }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -297,26 +298,29 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   font-size: 12.5px;
   color: var(--ink-faint);
   letter-spacing: 0.1em;
-  margin: 24px 0 0;
+  margin: 16px 0 0;
 }
 
-.hero__cta { margin: 32px 0 0; }
+.hero__cta { margin: 24px 0 0; }
 
-.hero__figure { text-align: center; margin-top: clamp(48px, 7vh, 80px); }
-/* Wrapper carries the sizing and the arch mask */
+.hero__figure { text-align: center; margin-top: clamp(28px, 4vh, 48px); }
+/* The clipPath carrier is layout-inert */
+.hero__clip { position: absolute; width: 0; height: 0; }
+/* Wrapper carries the sizing and the wavy-blob cutout */
 .hero__figure-inner {
   position: relative;
   left: 50%;
   transform: translateX(-50%); /* stays centred even when it breaks out of the container */
   /* Panoramic frame, ~10% wider than the container box. The 100vw and 100vh terms
-     keep the breakout from causing horizontal scroll or pushing past the fold. */
-  width: min(110%, calc(100vw - 32px), calc((100vh - 380px) * 2.5), 1320px);
-  aspect-ratio: 1320 / 528;
-  /* A gentle arch on the top edge, square-ish at the foot */
-  border-radius: 200px 200px 20px 20px;
+     keep the breakout from causing horizontal scroll or pushing past the fold —
+     the 450px term is the measured height of everything above it in the hero. */
+  width: min(110%, calc(100vw - 32px), calc((100vh - 450px) * 2.694), 1320px);
+  aspect-ratio: 1320 / 490;
+  /* Organic wavy blob: irregular flowing edges on all four sides.
+     No radius or shadow — a clip-path would crop both anyway. */
+  clip-path: url(#heroWave);
   overflow: hidden;
   background: var(--card);
-  box-shadow: var(--shadow-photo);
 }
 /* Oversized 6% top and bottom so the parallax shift never uncovers an edge */
 .hero__figure-inner img {
@@ -330,16 +334,16 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 }
 
 @media (max-width: 719px) {
-  .hero__figure-inner { border-radius: 120px 120px 16px 16px; aspect-ratio: 4 / 3; }
+  .hero__figure-inner { aspect-ratio: 4 / 3; }
 }
 
 /* ==========================================================================
    3. Gallery — asymmetric preview grid + lightbox
    ========================================================================== */
-.section-head { margin-bottom: 56px; max-width: 640px; }
+.section-head { margin-bottom: 36px; max-width: 640px; }
 
 .section-head h2 { font-size: clamp(32px, 4vw, 42px); }
-.section-head p { font-size: 17px; color: var(--ink-faint); margin: 14px 0 0; }
+.section-head p { font-size: 17px; color: var(--ink-faint); margin: 12px 0 0; }
 
 /* Mobile: big kitchen tile on top, then 2x2 grid of vertical photos */
 .gallery__preview {
@@ -380,7 +384,7 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 
 .gallery__tile--large { grid-column: span 2; grid-row: span 1; }
 
-.gallery__more { text-align: center; margin-top: 40px; }
+.gallery__more { text-align: center; margin-top: 32px; }
 .gallery__more .btn { font-size: 14px; padding: 13px 28px; }
 .gallery__more .icon-up { display: none; }
 .gallery__more .btn.is-open .icon-up { display: block; }
@@ -487,10 +491,10 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 /* ==========================================================================
    4. About
    ========================================================================== */
-.about__grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: start; }
+.about__grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start; }
 
-.about__text h2 { font-size: clamp(32px, 4vw, 42px); margin-bottom: 36px; }
-.about__text p { margin: 0 0 20px; max-width: 540px; }
+.about__text h2 { font-size: clamp(32px, 4vw, 42px); margin-bottom: 24px; }
+.about__text p { margin: 0 0 16px; max-width: 540px; }
 .about__text p:last-child { margin-bottom: 0; }
 
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -545,7 +549,7 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 18px 2px;
+  padding: 12px 2px;
   border-bottom: 1px solid var(--hairline);
   font-size: 16px;
   font-weight: 400;
@@ -553,21 +557,41 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   transition: color 0.4s ease;
 }
 .amenity:hover { color: var(--clay); }
+
+/* Thin outlined disc: 46px wide, a 22px mark inside it — just under half the
+   diameter, so the icon never crowds the edge. 1px hairline reads finer than 2. */
+.amenity__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+/* Hovering the row fills the disc with a whisper of terracotta */
+.amenity:hover .amenity__icon {
+  background: rgba(181, 101, 74, 0.08);
+  border-color: var(--clay);
+}
 /* Understated: the label leads, the mark supports */
 .amenity svg { stroke: var(--clay); flex-shrink: 0; opacity: 0.75; }
 
 @media (min-width: 720px) {
   .amenities__list { grid-template-columns: 1fr 1fr; }
-  .amenity { padding: 20px 2px; }
+  .amenity { padding: 14px 2px; }
 }
 
 /* ==========================================================================
    6. Location
    ========================================================================== */
-.location__grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
+.location__grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
 
-.location__text h2 { font-size: clamp(32px, 4vw, 42px); margin-bottom: 32px; }
-.location__text > p { margin: 0 0 40px; max-width: 500px; }
+.location__text h2 { font-size: clamp(32px, 4vw, 42px); margin-bottom: 20px; }
+.location__text > p { margin: 0 0 28px; max-width: 500px; }
 
 .location__list { display: flex; flex-direction: column; gap: 0; max-width: 500px; border-top: 1px solid var(--hairline); }
 .location__item {
@@ -593,7 +617,7 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   overflow: hidden;
   border: 1px solid var(--hairline);
   box-shadow: var(--shadow-photo);
-  height: 480px;
+  height: 420px;
   background: var(--card);
 }
 .location__map iframe { width: 100%; height: 100%; border: 0; display: block; }
@@ -605,26 +629,11 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 /* ==========================================================================
    7. Reviews
    ========================================================================== */
-.reviews__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 24px;
-  margin-bottom: 64px;
-}
-.reviews__head .section-num { flex-basis: 100%; margin-bottom: 20px; }
+.reviews__head { margin-bottom: 40px; }
 .reviews__head h2 { font-size: clamp(32px, 4vw, 42px); }
-.reviews__score {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--clay);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
 
-/* A spread, not a card grid: one pull-quote, two quiet notes alongside */
-.reviews__spread { display: grid; grid-template-columns: 1fr; gap: 56px; align-items: start; }
+/* A spread, not a card grid: one full-width pull-quote, two equal notes beneath */
+.reviews__spread { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: start; }
 
 .review-lead { margin: 0; }
 .review-lead__mark {
@@ -656,10 +665,11 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 .review-lead__name { color: var(--ink); }
 .review-lead__origin { color: var(--ink-faint); }
 
-.reviews__side { display: flex; flex-direction: column; gap: 40px; }
+/* The two secondary notes: equal columns, equal weight, no cropping */
+.reviews__side { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
 /* No borders, no fills — just a rule above each note */
 .review-note { border-top: 1px solid var(--hairline); padding-top: 24px; }
-.review-note p { margin: 0; font-size: 16px; color: var(--ink-soft); }
+.review-note p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink-soft); }
 .review-note footer {
   display: flex;
   align-items: baseline;
@@ -673,9 +683,10 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 .review-note__name { color: var(--ink); }
 .review-note__origin { color: var(--ink-faint); }
 
-@media (min-width: 900px) {
-  .reviews__spread { grid-template-columns: 1.45fr 1fr; gap: 88px; }
-  .reviews__side { padding-top: 40px; }
+@media (min-width: 720px) {
+  /* Lead quote keeps its own full-width row, capped to a readable measure */
+  .review-lead p { max-width: 62ch; }
+  .reviews__side { grid-template-columns: 1fr 1fr; gap: 56px; }
 }
 
 /* ==========================================================================
@@ -695,12 +706,12 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   inset: 0;
   background: rgba(43, 38, 33, 0.5);
 }
-.cta__inner { position: relative; padding: 96px 24px; }
-.cta h2 { font-size: clamp(34px, 4.4vw, 48px); color: var(--paper); margin-bottom: 18px; }
-.cta p { color: rgba(245, 241, 234, 0.86); margin: 0 0 40px; }
+.cta__inner { position: relative; padding: 72px 24px; }
+.cta h2 { font-size: clamp(34px, 4.4vw, 48px); color: var(--paper); margin-bottom: 14px; }
+.cta p { color: rgba(245, 241, 234, 0.86); margin: 0 0 32px; }
 .cta__actions { display: flex; flex-direction: column; align-items: center; gap: 14px; }
 
-@media (min-width: 900px) { .cta__inner { padding: 120px 64px; } }
+@media (min-width: 900px) { .cta__inner { padding: 88px 64px; } }
 
 /* ==========================================================================
    9. Footer — light beige, dark text
@@ -715,8 +726,8 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-top: 48px;
+  padding-bottom: 48px;
   border-top: 1px solid var(--hairline);
 }
 .footer__brand { font-family: var(--font-serif); font-size: 20px; color: var(--ink); }
