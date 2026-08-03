@@ -24,17 +24,19 @@
     <div class="container header__inner">
       <a href="#" class="header__brand">Terra Intelvi</a>
       <nav class="header__nav" aria-label="Main">
-        <a href="#gallery">The apartment</a>
-        <a href="#location">Location</a>
-        <a href="#reviews">Reviews</a>
+        <a href="#gallery" data-en="The apartment" data-it="L'appartamento">The apartment</a>
+        <a href="#location" data-en="Location" data-it="Dove siamo">Location</a>
+        <a href="#reviews" data-en="Reviews" data-it="Recensioni">Reviews</a>
       </nav>
       <div class="header__right">
+        <!-- Language toggle — page content only. The WhatsApp icon beside it is
+             a separate link and is never part of this switch. -->
         <div class="lang" aria-label="Language">
-          <a href="#" class="is-active" aria-current="true">EN</a>
+          <a href="#" data-lang="en" class="is-active" aria-current="true">EN</a>
           <span class="lang__sep">|</span>
-          <span class="lang__disabled" title="Coming soon" aria-disabled="true">IT</span>
+          <a href="#" data-lang="it">IT</a>
         </div>
-        <a class="btn btn--icon-round" href="https://wa.me/393281196434" target="_blank" rel="noopener" aria-label="Chat with your host on WhatsApp">
+        <a class="btn btn--icon-round" href="https://wa.me/393281196434" target="_blank" rel="noopener" aria-label="Chat with your host on WhatsApp" data-en-aria-label="Chat with your host on WhatsApp" data-it-aria-label="Scrivi al tuo host su WhatsApp">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.6 4.3c1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3Z"/></svg>
         </a>
       </div>
@@ -45,14 +47,8 @@
 
     <!-- ================= 2. HERO ================= -->
     <section class="hero container" aria-label="Terra Intelvi">
-      <h1 class="hero__title">A <em>quiet</em> mountain home<br>between two lakes</h1>
-      <p class="hero__meta">Valle d'Intelvi &nbsp;&middot;&nbsp; 2 bedrooms &nbsp;&middot;&nbsp; up to 4 guests &nbsp;&middot;&nbsp; 120 m&sup2;</p>
-      <div class="hero__cta">
-        <a class="btn btn--clay" href="https://wa.me/393281196434" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.6 4.3c1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3Z"/></svg>
-          Chat with your host
-        </a>
-      </div>
+      <h1 class="hero__title" data-en="A <em>quiet</em> mountain home<br>between two lakes" data-it="Una <em>tranquilla</em> casa di montagna<br>tra due laghi">A <em>quiet</em> mountain home<br>between two lakes</h1>
+      <p class="hero__meta" data-en="Valle d'Intelvi &nbsp;&middot;&nbsp; 2 bedrooms &nbsp;&middot;&nbsp; up to 4 guests &nbsp;&middot;&nbsp; 120 m&sup2;" data-it="Valle d'Intelvi &nbsp;&middot;&nbsp; 2 camere &nbsp;&middot;&nbsp; fino a 4 ospiti &nbsp;&middot;&nbsp; 120 m&sup2;">Valle d'Intelvi &nbsp;&middot;&nbsp; 2 bedrooms &nbsp;&middot;&nbsp; up to 4 guests &nbsp;&middot;&nbsp; 120 m&sup2;</p>
       <div class="hero__figure">
         <!-- Organic wavy-blob cutout with a slow breathing morph (SMIL, 7s loop).
              The clipPath is in objectBoundingBox units so one path fits any frame
@@ -74,6 +70,13 @@
           <img src="images/stock/hero-lake.jpg" alt="Lake Como seen from the mountains above Valle d'Intelvi">
         </div>
       </div>
+      <!-- Last element on purpose: it is pulled up onto the photo's lower edge -->
+      <div class="hero__cta">
+        <a class="btn btn--clay" href="https://wa.me/393281196434" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.6 4.3c1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3Z"/></svg>
+          <span data-en="Chat with your host" data-it="Scrivi al tuo host">Chat with your host</span>
+        </a>
+      </div>
     </section>
 
     <hr class="rule">
@@ -82,8 +85,8 @@
     <section id="gallery" class="container">
       <div class="section-head fade-up">
         <span class="section-num">01 &mdash;</span>
-        <h2>Step inside</h2>
-        <p>A duplex apartment with room to breathe. Tap a photo to browse.</p>
+        <h2 data-en="Step inside" data-it="Entra e guarda">Step inside</h2>
+        <p data-en="A duplex apartment with room to breathe. Tap a photo to browse." data-it="Un appartamento su due piani, con tutto lo spazio per respirare. Tocca una foto per sfogliare.">A duplex apartment with room to breathe. Tap a photo to browse.</p>
       </div>
       <div class="gallery__preview">
         <button class="gallery__tile gallery__tile--large fade-up" data-photo="Kitchen-1.jpg" aria-label="Open photo gallery, kitchen">
@@ -110,7 +113,7 @@
         <button class="btn btn--outline" id="view-all-photos" aria-expanded="false">
           <svg class="icon-grid" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
           <svg class="icon-up" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
-          <span id="view-all-label">View all 18 photos</span>
+          <span id="view-all-label" data-en="View all 18 photos" data-it="Guarda tutte le 18 foto">View all 18 photos</span>
         </button>
       </div>
     </section>
@@ -121,19 +124,19 @@
     <section id="about" class="container">
       <div class="about__grid">
         <div class="about__text fade-up">
-          <h2>A home in the <em>green</em>, made for slowing down</h2>
-          <p>Terra Intelvi is our family apartment in the hills of Valle d'Intelvi, halfway between Lake Como and Lake Lugano. Mornings here start with birdsong and mountain air. Evenings end on the sofa after a day of lakes, trails and long lunches.</p>
-          <p>It's not a hotel. It's a real home, cared for and quietly comfortable, with everything a family of four needs to settle in for a week or more.</p>
+          <h2 data-en="A home in the <em>green</em>, made for slowing down" data-it="Una casa nel <em>verde</em>, fatta per rallentare">A home in the <em>green</em>, made for slowing down</h2>
+          <p data-en="Terra Intelvi is our family apartment in the hills of Valle d'Intelvi, halfway between Lake Como and Lake Lugano. Mornings here start with birdsong and mountain air. Evenings end on the sofa after a day of lakes, trails and long lunches." data-it="Terra Intelvi è l'appartamento della nostra famiglia sulle colline della Valle d'Intelvi, a metà strada tra il Lago di Como e il Lago di Lugano. Qui le mattine iniziano con il canto degli uccelli e l'aria di montagna. Le sere finiscono sul divano, dopo una giornata tra laghi, sentieri e lunghi pranzi.">Terra Intelvi is our family apartment in the hills of Valle d'Intelvi, halfway between Lake Como and Lake Lugano. Mornings here start with birdsong and mountain air. Evenings end on the sofa after a day of lakes, trails and long lunches.</p>
+          <p data-en="It's not a hotel. It's a real home, cared for and quietly comfortable, with everything a family of four needs to settle in for a week or more." data-it="Non è un hotel. È una casa vera, curata e silenziosamente confortevole, con tutto ciò che serve a una famiglia di quattro persone per sentirsi a casa per una settimana o più.">It's not a hotel. It's a real home, cared for and quietly comfortable, with everything a family of four needs to settle in for a week or more.</p>
         </div>
         <div class="facts">
-          <div class="fact-card fade-up"><div class="fact-card__value">120 m&sup2;</div><div class="fact-card__label">across two floors</div></div>
-          <div class="fact-card fade-up"><div class="fact-card__value">2 bedrooms</div><div class="fact-card__label">up to 4 guests</div></div>
-          <div class="fact-card fade-up"><div class="fact-card__value">1 bathroom</div><div class="fact-card__label">modern &amp; bright</div></div>
-          <div class="fact-card fade-up"><div class="fact-card__value">Self check-in</div><div class="fact-card__label">arrive on your time</div></div>
+          <div class="fact-card fade-up"><div class="fact-card__value">120 m&sup2;</div><div class="fact-card__label" data-en="across two floors" data-it="su due piani">across two floors</div></div>
+          <div class="fact-card fade-up"><div class="fact-card__value" data-en="2 bedrooms" data-it="2 camere">2 bedrooms</div><div class="fact-card__label" data-en="up to 4 guests" data-it="fino a 4 ospiti">up to 4 guests</div></div>
+          <div class="fact-card fade-up"><div class="fact-card__value" data-en="1 bathroom" data-it="1 bagno">1 bathroom</div><div class="fact-card__label" data-en="modern &amp; bright" data-it="moderno e luminoso">modern &amp; bright</div></div>
+          <div class="fact-card fade-up"><div class="fact-card__value" data-en="Self check-in" data-it="Check-in autonomo">Self check-in</div><div class="fact-card__label" data-en="arrive on your time" data-it="arriva quando vuoi">arrive on your time</div></div>
           <div class="tags fade-up">
-            <span>Free parking</span><span class="dot">&middot;</span>
-            <span>Non-smoking</span><span class="dot">&middot;</span>
-            <span>Ideal for families</span>
+            <span data-en="Free parking" data-it="Parcheggio gratuito">Free parking</span><span class="dot">&middot;</span>
+            <span data-en="Non-smoking" data-it="Non fumatori">Non-smoking</span><span class="dot">&middot;</span>
+            <span data-en="Ideal for families" data-it="Ideale per famiglie">Ideal for families</span>
           </div>
         </div>
       </div>
@@ -145,19 +148,19 @@
     <section id="amenities" class="container">
       <div class="section-head fade-up">
         <span class="section-num">02 &mdash;</span>
-        <h2>Everything you need</h2>
+        <h2 data-en="Everything you need" data-it="Tutto il necessario">Everything you need</h2>
       </div>
       <div class="amenities__list">
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg></span><span>Fast WiFi</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></span><span>Full kitchen</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg></span><span>Dishwasher</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg></span><span>Coffee machine</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></span><span>Free parking</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h3"/><path d="M17 6h.01"/><rect width="18" height="20" x="3" y="2" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></svg></span><span>Washing machine</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg></span><span>Smart TV</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/><path d="M6 8v2"/><path d="M18 8v2"/></svg></span><span>Towels &amp; linens</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg></span><span>High chair</span></div>
-        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h13"/><path d="M18 8c0-2.5-2-2.5-2-5"/><path d="m2 2 20 20"/><path d="M21 12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-1"/><path d="M22 8c0-2.5-2-2.5-2-5"/><path d="M7 12v4"/></svg></span><span>Non-smoking</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg></span><span data-en="Fast WiFi" data-it="WiFi veloce">Fast WiFi</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></span><span data-en="Full kitchen" data-it="Cucina completa">Full kitchen</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg></span><span data-en="Dishwasher" data-it="Lavastoviglie">Dishwasher</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg></span><span data-en="Coffee machine" data-it="Macchina del caffè">Coffee machine</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></span><span data-en="Free parking" data-it="Parcheggio gratuito">Free parking</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h3"/><path d="M17 6h.01"/><rect width="18" height="20" x="3" y="2" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></svg></span><span data-en="Washing machine" data-it="Lavatrice">Washing machine</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg></span><span data-en="Smart TV" data-it="Smart TV">Smart TV</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 17h20"/><path d="M6 8v2"/><path d="M18 8v2"/></svg></span><span data-en="Towels &amp; linens" data-it="Asciugamani e biancheria">Towels &amp; linens</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg></span><span data-en="High chair" data-it="Seggiolone">High chair</span></div>
+        <div class="amenity fade-up"><span class="amenity__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h13"/><path d="M18 8c0-2.5-2-2.5-2-5"/><path d="m2 2 20 20"/><path d="M21 12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-1"/><path d="M22 8c0-2.5-2-2.5-2-5"/><path d="M7 12v4"/></svg></span><span data-en="Non-smoking" data-it="Non fumatori">Non-smoking</span></div>
       </div>
     </section>
 
@@ -168,19 +171,21 @@
       <div class="location__grid">
         <div class="location__text fade-up">
           <span class="section-num">03 &mdash;</span>
-          <h2>In the <em>green</em> Valle d'Intelvi, between Lake Como and Lake Lugano</h2>
-          <p>The valley sits quietly above both lakes. Close enough for a morning swim in one and an evening stroll along the other, yet far enough to keep the crowds away.</p>
+          <h2 data-en="In the <em>green</em> Valle d'Intelvi, between Lake Como and Lake Lugano" data-it="Nella <em>verde</em> Valle d'Intelvi, tra il Lago di Como e il Lago di Lugano">In the <em>green</em> Valle d'Intelvi, between Lake Como and Lake Lugano</h2>
+          <p data-en="The valley sits quietly above both lakes. Close enough for a morning swim in one and an evening stroll along the other, yet far enough to keep the crowds away." data-it="La valle si affaccia in silenzio su entrambi i laghi. Abbastanza vicina per un bagno la mattina in uno e una passeggiata la sera lungo l'altro, ma lontana quel tanto che basta per lasciarsi la folla alle spalle.">The valley sits quietly above both lakes. Close enough for a morning swim in one and an evening stroll along the other, yet far enough to keep the crowds away.</p>
           <div class="location__list">
-            <div class="location__item"><span>Lake Como &amp; Argegno</span><span>15 min by car</span></div>
-            <div class="location__item"><span>Lake Lugano &amp; Swiss border</span><span>20 min by car</span></div>
-            <div class="location__item"><span>Monte Generoso panoramic railway</span><span>30 min by car</span></div>
-            <div class="location__item"><span>Hiking &amp; cycling trails</span><span>from the doorstep</span></div>
+            <div class="location__item"><span data-en="Lake Como &amp; Argegno" data-it="Lago di Como e Argegno">Lake Como &amp; Argegno</span><span data-en="15 min by car" data-it="15 min in auto">15 min by car</span></div>
+            <div class="location__item"><span data-en="Lake Lugano &amp; Swiss border" data-it="Lago di Lugano e confine svizzero">Lake Lugano &amp; Swiss border</span><span data-en="20 min by car" data-it="20 min in auto">20 min by car</span></div>
+            <div class="location__item"><span data-en="Monte Generoso panoramic railway" data-it="Ferrovia panoramica del Monte Generoso">Monte Generoso panoramic railway</span><span data-en="30 min by car" data-it="30 min in auto">30 min by car</span></div>
+            <div class="location__item"><span data-en="Hiking &amp; cycling trails" data-it="Sentieri e piste ciclabili">Hiking &amp; cycling trails</span><span data-en="from the doorstep" data-it="a due passi da casa">from the doorstep</span></div>
           </div>
         </div>
         <div class="location__map fade-up">
           <iframe
             src="https://www.google.com/maps?q=Piazza+Andrea+Andreetti%2C+25%2C+San+Fedele+Intelvi+%28Valle+d%27Intelvi%29%2C+Italy&output=embed"
             title="Map showing Terra Intelvi's location in San Fedele Intelvi"
+            data-en-title="Map showing Terra Intelvi's location in San Fedele Intelvi"
+            data-it-title="Mappa con la posizione di Terra Intelvi a San Fedele Intelvi"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             allowfullscreen></iframe>
@@ -194,33 +199,33 @@
     <section id="reviews" class="container">
       <div class="reviews__head fade-up">
         <span class="section-num">04 &mdash;</span>
-        <h2>Guests keep coming back</h2>
+        <h2 data-en="Guests keep coming back" data-it="Gli ospiti tornano sempre volentieri">Guests keep coming back</h2>
       </div>
       <div class="reviews__spread">
         <!-- Lead review, set as a pull-quote -->
         <article class="review-lead fade-up">
           <div class="review-lead__mark">&ldquo;</div>
-          <p>Incredible apartments on Lake Como, a real earthly paradise. What strikes me most is our host, extremely kind and attentive, creating an atmosphere of genuine family comfort. The apartments are very comfortable and the bed is a true delight, extremely soft, offering perfect rest after an intense day. And of course, the breathtaking panoramas of Lake Como. Mountains, water and nature, like a painting, make the morning here truly magical.</p>
+          <p data-en="Incredible apartments on Lake Como, a real earthly paradise. What strikes me most is our host, extremely kind and attentive, creating an atmosphere of genuine family comfort. The apartments are very comfortable and the bed is a true delight, extremely soft, offering perfect rest after an intense day. And of course, the breathtaking panoramas of Lake Como. Mountains, water and nature, like a painting, make the morning here truly magical." data-it="Appartamenti incredibili sul Lago di Como, un vero paradiso terrestre. Quello che colpisce di più è la nostra host, gentilissima e attenta, capace di creare un'atmosfera di autentico calore familiare. Gli appartamenti sono comodissimi e il letto è una vera delizia, morbidissimo, che regala un riposo perfetto dopo una giornata intensa. E poi, naturalmente, i panorami mozzafiato sul Lago di Como. Montagne, acqua e natura, come in un quadro: qui la mattina è davvero magica.">Incredible apartments on Lake Como, a real earthly paradise. What strikes me most is our host, extremely kind and attentive, creating an atmosphere of genuine family comfort. The apartments are very comfortable and the bed is a true delight, extremely soft, offering perfect rest after an intense day. And of course, the breathtaking panoramas of Lake Como. Mountains, water and nature, like a painting, make the morning here truly magical.</p>
           <footer>
-            <div class="review__by"><span class="review-lead__name">Iryna</span><span class="review-lead__origin">Ukraine</span></div>
-            <span class="review-meta">Verified stay</span>
+            <div class="review__by"><span class="review-lead__name">Iryna</span><span class="review-lead__origin" data-en="Ukraine" data-it="Ucraina">Ukraine</span></div>
+            <span class="review-meta" data-en="Verified stay" data-it="Soggiorno verificato">Verified stay</span>
           </footer>
         </article>
         <div class="reviews__side">
           <!-- PLACEHOLDER REVIEW -->
           <article class="review-note fade-up">
-            <p>Waking up to mountain views, coffee on the balcony, then down to Lake Como in fifteen minutes. The apartment is even lovelier than the photos.</p>
+            <p data-en="Waking up to mountain views, coffee on the balcony, then down to Lake Como in fifteen minutes. The apartment is even lovelier than the photos." data-it="Svegliarsi con la vista sulle montagne, il caffè in balcone e poi giù al Lago di Como in un quarto d'ora. L'appartamento è ancora più bello che nelle foto.">Waking up to mountain views, coffee on the balcony, then down to Lake Como in fifteen minutes. The apartment is even lovelier than the photos.</p>
             <footer>
-              <div class="review__by"><span class="review-note__name">Jonas &amp; Marta</span><span class="review-note__origin">Hamburg</span></div>
-              <span class="review-meta">Verified stay</span>
+              <div class="review__by"><span class="review-note__name">Jonas &amp; Marta</span><span class="review-note__origin" data-en="Hamburg" data-it="Amburgo">Hamburg</span></div>
+              <span class="review-meta" data-en="Verified stay" data-it="Soggiorno verificato">Verified stay</span>
             </footer>
           </article>
           <!-- PLACEHOLDER REVIEW -->
           <article class="review-note fade-up">
-            <p>Spacious, spotless and genuinely homey. The kids loved the spiral staircase; we loved the quiet. Two lakes in one holiday. Perfect.</p>
+            <p data-en="Spacious, spotless and genuinely homey. The kids loved the spiral staircase; we loved the quiet. Two lakes in one holiday. Perfect." data-it="Spazioso, impeccabile e davvero accogliente. I bambini hanno adorato la scala a chiocciola, noi il silenzio. Due laghi in una sola vacanza. Perfetto.">Spacious, spotless and genuinely homey. The kids loved the spiral staircase; we loved the quiet. Two lakes in one holiday. Perfect.</p>
             <footer>
-              <div class="review__by"><span class="review-note__name">Sophie</span><span class="review-note__origin">Amsterdam</span></div>
-              <span class="review-meta">Verified stay</span>
+              <div class="review__by"><span class="review-note__name">Sophie</span><span class="review-note__origin" data-en="Amsterdam" data-it="Amsterdam">Amsterdam</span></div>
+              <span class="review-meta" data-en="Verified stay" data-it="Soggiorno verificato">Verified stay</span>
             </footer>
           </article>
         </div>
@@ -233,14 +238,14 @@
     <section id="book" class="container">
       <div class="cta fade-up">
         <div class="cta__inner">
-          <h2>Book your stay</h2>
-          <p>Message Yuliya directly on WhatsApp. She usually replies within a few hours.</p>
+          <h2 data-en="Book your stay" data-it="Prenota il tuo soggiorno">Book your stay</h2>
+          <p data-en="Message Yuliya directly on WhatsApp. She usually replies within a few hours." data-it="Scrivi direttamente a Yuliya su WhatsApp. Di solito risponde nel giro di poche ore.">Message Yuliya directly on WhatsApp. She usually replies within a few hours.</p>
           <div class="cta__actions">
             <a class="btn" href="https://wa.me/393281196434" target="_blank" rel="noopener">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.4.3-.4.7-1.3 0-.2 0-.3-.1-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a12 12 0 0 0 4.6 4.3c1.7.8 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3Z"/></svg>
-              Chat with your host
+              <span data-en="Chat with your host" data-it="Scrivi al tuo host">Chat with your host</span>
             </a>
-            <a class="btn btn--ghost-light" href="mailto:terraintelvi@gmail.com">Send an email</a>
+            <a class="btn btn--ghost-light" href="mailto:terraintelvi@gmail.com" data-en="Send an email" data-it="Scrivi un'email">Send an email</a>
           </div>
         </div>
       </div>
@@ -251,15 +256,15 @@
       <div class="container footer__inner">
         <div>
           <div class="footer__brand">Terra Intelvi</div>
-          <div>Piazza Andrea Andreetti 25, San Fedele Intelvi, Italy</div>
+          <div data-en="Piazza Andrea Andreetti 25, San Fedele Intelvi, Italy" data-it="Piazza Andrea Andreetti 25, San Fedele Intelvi, Italia">Piazza Andrea Andreetti 25, San Fedele Intelvi, Italy</div>
         </div>
         <div class="footer__links">
           <a href="https://wa.me/393281196434" target="_blank" rel="noopener">WhatsApp</a>
           <a href="mailto:terraintelvi@gmail.com">terraintelvi@gmail.com</a>
           <div class="lang">
-            <a href="#" class="is-active" aria-current="true">EN</a>
+            <a href="#" data-lang="en" class="is-active" aria-current="true">EN</a>
             <span class="lang__sep">|</span>
-            <span class="lang__disabled" title="Coming soon" aria-disabled="true">IT</span>
+            <a href="#" data-lang="it">IT</a>
           </div>
         </div>
       </div>

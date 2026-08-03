@@ -1,9 +1,53 @@
 /* ==========================================================================
    Terra Intelvi — script.js
-   Vanilla JS: lightbox over all 18 photos, scroll animations.
+   Vanilla JS: language toggle, lightbox over all 18 photos, scroll animations.
    ========================================================================== */
 (function () {
   'use strict';
+
+  /* ---------- Language toggle (EN / IT) ----------
+     Every translatable element carries its own copy in data-en / data-it, so
+     the markup stays readable and English still renders without JS. Text-
+     carrying attributes use the data-<lang>-<attr> form (e.g. data-it-title).
+     Nothing here touches the WhatsApp links — those are plain links. */
+  var LANG_ATTRS = ['title', 'aria-label'];
+  var lang = 'en';
+
+  function applyLang(next) {
+    lang = next;
+    document.documentElement.lang = next;
+
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      var copy = el.getAttribute('data-' + next);
+      /* Values are authored inline in index.html, hence innerHTML: a few
+         strings carry their own <em> or <br>. */
+      if (copy !== null) el.innerHTML = copy;
+    });
+
+    LANG_ATTRS.forEach(function (attr) {
+      document.querySelectorAll('[data-en-' + attr + ']').forEach(function (el) {
+        var copy = el.getAttribute('data-' + next + '-' + attr);
+        if (copy !== null) el.setAttribute(attr, copy);
+      });
+    });
+
+    document.querySelectorAll('.lang a[data-lang]').forEach(function (el) {
+      var on = el.getAttribute('data-lang') === next;
+      el.classList.toggle('is-active', on);
+      if (on) { el.setAttribute('aria-current', 'true'); }
+      else { el.removeAttribute('aria-current'); }
+    });
+
+    /* The gallery button's label is owned by JS, so it is restated last */
+    refreshGalleryLabel();
+  }
+
+  document.querySelectorAll('.lang a[data-lang]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      applyLang(el.getAttribute('data-lang'));
+    });
+  });
 
   /* ---------- All 18 photos, in browsing order ---------- */
   var IMG = 'images/apartment/';
@@ -96,6 +140,16 @@
     extraGrid.appendChild(tile);
   });
 
+  /* The collapsed label lives in the markup (data-en / data-it); only the
+     expanded one needs a home here. */
+  var HIDE_LABEL = { en: 'Hide photos', it: 'Nascondi le foto' };
+
+  function refreshGalleryLabel() {
+    moreLabel.textContent = expanded
+      ? HIDE_LABEL[lang]
+      : moreLabel.getAttribute('data-' + lang);
+  }
+
   function expandGallery() {
     expanded = true;
     extraWrap.style.maxHeight = extraWrap.scrollHeight + 'px';
@@ -103,7 +157,7 @@
     extraWrap.setAttribute('aria-hidden', 'false');
     moreBtn.classList.add('is-open');
     moreBtn.setAttribute('aria-expanded', 'true');
-    moreLabel.textContent = 'Hide photos';
+    refreshGalleryLabel();
     // Let it grow freely after the transition (e.g. on window resize)
     setTimeout(function () { if (expanded) extraWrap.style.maxHeight = 'none'; }, 450);
   }
@@ -118,7 +172,7 @@
     extraWrap.setAttribute('aria-hidden', 'true');
     moreBtn.classList.remove('is-open');
     moreBtn.setAttribute('aria-expanded', 'false');
-    moreLabel.textContent = 'View all 18 photos';
+    refreshGalleryLabel();
   }
 
   moreBtn.addEventListener('click', function () {
