@@ -109,9 +109,13 @@ h1 em, h2 em {
    margin: 0 auto (not margin: 0) so it doesn't cancel the centering
    margins .container already sets. */
 section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
+/* Phones: one gutter value, stated as longhands so both sides are provably
+   equal. Anything that used to break out of this box is pulled back inside it
+   below, so the document is never wider than the viewport — a single pixel of
+   horizontal overflow shifts every section left on a phone. */
 @media (max-width: 719px) {
-  .container { padding: 0 24px; }
-  section.container { padding: var(--section-pad) 24px; }
+  .container { padding-left: 20px; padding-right: 20px; }
+  section.container { padding-left: 20px; padding-right: 20px; }
 }
 /* The hero owns exactly one screen: header + hero = 100vh, and everything
    inside it (title, meta, CTA, photo) is balanced in that column.
@@ -366,11 +370,31 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 @media (max-width: 719px) {
   /* Phones: don't force one screen. Mobile 100vh is unreliable (the URL bar
      changes it mid-scroll) and the taller 4:3 frame would be cropped by the
-     desktop height budget, so both constraints are lifted here. */
-  .hero.container { min-height: 0; display: block; padding-top: 20px; }
-  .hero__figure-inner { aspect-ratio: 4 / 3; max-height: none; }
+     desktop height budget, so both constraints are lifted here.
+     Still a flex column, but only so the CTA can be reordered: on a phone the
+     thumb is at the bottom, so the button follows the photo instead of sitting
+     between the meta line and it. Reading order stays title → meta → photo →
+     button; the DOM order (and therefore desktop) is untouched. */
+  .hero.container {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+  /* Small margin because the blob's wavy bottom edge already leaves ~40px of
+     optical space inside the frame */
+  .hero__cta { order: 1; margin-top: 8px; }
+  /* No breakout on phones: the frame lines up with the text gutter, so the
+     photo can never push the document past the viewport width. */
+  .hero__figure-inner {
+    aspect-ratio: 4 / 3;
+    max-height: none;
+    width: 100%;
+    left: auto;
+    transform: none;
+  }
   .hero__figure { margin-top: 24px; }
-  .hero__cta { margin-top: 20px; }
 }
 
 /* ==========================================================================
@@ -566,6 +590,18 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 }
 .tags .dot { color: var(--clay); }
 
+/* Phones: two equal columns that are allowed to shrink. Plain `1fr` tracks
+   refuse to go below their min-content ("Self check-in" + 52px of padding),
+   which pushed the grid ~24px wider than the screen on 320-360px phones — the
+   document then scrolled sideways and every section looked shifted left with
+   its right edge cut off. minmax(0, 1fr) plus tighter padding removes it. */
+@media (max-width: 719px) {
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .fact-card { padding: 20px 16px; min-width: 0; }
+  .fact-card__value { overflow-wrap: break-word; }
+  .tags { padding: 16px 18px; }
+}
+
 @media (min-width: 900px) {
   .about__grid { grid-template-columns: 1.1fr 1fr; gap: 80px; }
 }
@@ -615,6 +651,26 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 }
 /* Understated: the label leads, the mark supports */
 .amenity svg { stroke: var(--clay); flex-shrink: 0; opacity: 0.75; }
+
+/* Phones: two per row, halving the height of the section. A cell is only
+   ~130px wide there, so the disc sits above its label rather than beside it,
+   and both are centred so the ragged label lengths still read as a grid.
+   Grid stretches the cells in a row to equal height, so the hairlines below
+   them stay on one line even when a label wraps. */
+@media (max-width: 719px) {
+  .amenities__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .amenity {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    gap: 10px;
+    padding: 16px 4px;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+  .amenity__icon { width: 42px; height: 42px; }
+}
 
 @media (min-width: 720px) {
   .amenities__list { grid-template-columns: 1fr 1fr; }
@@ -736,6 +792,18 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 }
 .review-note__name { color: var(--ink); }
 .review-note__origin { color: var(--ink-faint); }
+
+/* Phones: the lead quote runs to several screens at this type size, so it is
+   clamped to five lines with an ellipsis. Desktop keeps the full text. */
+@media (max-width: 719px) {
+  .review-lead p {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
 
 @media (min-width: 720px) {
   /* Lead quote keeps its own full-width row, capped to a readable measure */
