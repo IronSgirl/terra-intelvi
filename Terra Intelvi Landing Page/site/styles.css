@@ -318,38 +318,45 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   margin: 12px 0 0;
 }
 
-/* One source of truth for the photo frame's width. The height budget below it
-   is what is left of the screen once the header, title, meta, CTA and the
-   hero's own padding are paid for — measured at ~393px on a 1440x900 laptop,
-   rounded up to 420px for headroom (longer IT strings, fallback fonts).
-   2.69 is the frame's own ratio (1320/490), so the width this term yields and
-   the max-height cap below always agree and the blob is never squashed.
-   max(320px, …) keeps the photo present on very short viewports. */
-.hero { --frame-w: min(124%, calc(100vw - 32px), max(320px, calc((100vh - 420px) * 2.69)), 1480px); }
-
 /* Clean paper between the meta line and the photo: no overlap, no negative
    margin, no z-index. The default clay glow is enough here. */
 .hero__cta { margin: 24px 0 0; }
 
 .hero__figure { text-align: center; margin-top: 28px; }
+/* Desktop only (>=1224px): the frame breaks well outside the 1104px text column
+   so the photo reads as a full-bleed-ish band. Equal negative margins do the
+   centring — the container's content width (a fixed 1104px in this range) minus
+   the target frame width, halved, on each side.
+      --hero-frame-w tracks the page: 93.75vw up to 1440px, then it slows to
+      31.25vw + 900px and stops at 1500px, so it never chases an ultrawide.
+      1280 -> 1200px   1440 -> 1350px   1600 -> 1400px   >=1920 -> 1500px
+   Side margin is 3.125vw (40px) at its tightest, so the blob never reaches the
+   page edge. Width only: no height, no clip-path, nothing below 1224px. */
+@media (min-width: 1224px) {
+  .hero__figure {
+    --hero-frame-w: min(93.75vw, 31.25vw + 900px, 1500px);
+    margin-left: calc((100% - var(--hero-frame-w)) / 2);
+    margin-right: calc((100% - var(--hero-frame-w)) / 2);
+  }
+}
 /* The clipPath carrier is layout-inert */
 .hero__clip { position: absolute; width: 0; height: 0; }
-/* Wrapper carries the sizing and the wavy-blob cutout */
+/* Wrapper carries the sizing and the wavy-blob cutout.
+   The frame is sized from the viewport, never from a fixed pixel height, so the
+   whole thing lands above the fold on load. The 100vh term is what the header,
+   title, meta and CTA above it leave behind (~400px on a 1440px-wide laptop),
+   so on shorter screens the photo gives ground instead of pushing past the fold.
+      The x1.2 (and the cap moving 640 -> 768) is what makes the blob read as a
+   panoramic window instead of a strip. It is paid for out of the frame's own
+   dead space: the clip path bottoms out at y=0.8816, so the lowest 11.84% of
+   this box is always transparent. What has to clear the fold is the blob's
+   bottom edge at 0.8816 x height, not the box — at 1440x900 that lands at
+   889px, 10px clear of a 900px viewport. Only invisible tail falls below. */
 .hero__figure-inner {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%); /* stays centred even when it breaks out of the container */
-  /* Panoramic frame, ~24% wider than the container box. The 100vw and 100vh terms
-     keep the breakout from causing horizontal scroll or pushing past the fold —
-     the 340px term covers the header, heading and meta above it (the CTA below
-     costs nothing, it is pulled back onto the frame); 2.9 is the width the
-     remaining height can afford. */
-  width: var(--frame-w);
-  aspect-ratio: 1320 / 490;
-  /* Hard ceiling on the leftover space, matching the 420px budget above. The
-     photo can only ever fill what the text and CTA did not use, so the wavy
-     bottom edge always lands above the fold. */
-  max-height: max(180px, calc(100vh - 420px));
+  width: 100%;
+  height: 80vh;
+  max-height: min(768px, max(200px, calc(1.2 * (100vh - 400px))));
   /* Organic wavy blob: irregular flowing edges on all four sides.
      No radius or shadow — a clip-path would crop both anyway. */
   clip-path: url(#heroWave);
@@ -385,14 +392,12 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   /* Small margin because the blob's wavy bottom edge already leaves ~40px of
      optical space inside the frame */
   .hero__cta { order: 1; margin-top: 8px; }
-  /* No breakout on phones: the frame lines up with the text gutter, so the
-     photo can never push the document past the viewport width. */
+  /* Taller 4:3 frame on phones. height:auto hands sizing back to the aspect
+     ratio — the desktop 80vh/640px budget would crop it. */
   .hero__figure-inner {
     aspect-ratio: 4 / 3;
+    height: auto;
     max-height: none;
-    width: 100%;
-    left: auto;
-    transform: none;
   }
   .hero__figure { margin-top: 24px; }
 }
@@ -617,40 +622,36 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   border-top: 1px solid var(--hairline);
 }
 
+/* These rows are an index, not a menu — nothing sits behind them. So they carry
+   no cursor change, no hover and no active state: a non-interactive element must
+   never signal that it can be tapped. */
 .amenity {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 12px 2px;
+  gap: 20px;
+  padding: 18px 2px;
   border-bottom: 1px solid var(--hairline);
   font-size: 16px;
   font-weight: 400;
   color: var(--ink);
-  transition: color 0.4s ease;
 }
-.amenity:hover { color: var(--clay); }
 
-/* Thin outlined disc: 46px wide, a 22px mark inside it — just under half the
-   diameter, so the icon never crowds the edge. 1px hairline reads finer than 2. */
+/* Thin outlined disc: 56px wide, a 30px mark inside it — just over half the
+   diameter, so the icon reads at text scale without crowding the edge.
+   1px hairline reads finer than 2. */
 .amenity__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
   border: 1px solid var(--hairline);
   border-radius: 50%;
   background: transparent;
-  transition: background 0.3s ease, border-color 0.3s ease;
 }
-/* Hovering the row fills the disc with a whisper of terracotta */
-.amenity:hover .amenity__icon {
-  background: rgba(181, 101, 74, 0.08);
-  border-color: var(--clay);
-}
-/* Understated: the label leads, the mark supports */
-.amenity svg { stroke: var(--clay); flex-shrink: 0; opacity: 0.75; }
+/* Full-strength terracotta: the mark is set in the page accent, not greyed back */
+.amenity svg { width: 30px; height: 30px; stroke: var(--clay); flex-shrink: 0; }
 
 /* Phones: two per row, halving the height of the section. A cell is only
    ~130px wide there, so the disc sits above its label rather than beside it,
@@ -664,17 +665,17 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    gap: 10px;
-    padding: 16px 4px;
+    gap: 12px;
+    padding: 20px 4px;
     font-size: 14px;
     line-height: 1.35;
   }
-  .amenity__icon { width: 42px; height: 42px; }
+  .amenity__icon { width: 52px; height: 52px; }
 }
 
 @media (min-width: 720px) {
   .amenities__list { grid-template-columns: 1fr 1fr; }
-  .amenity { padding: 14px 2px; }
+  .amenity { padding: 20px 2px; }
 }
 
 /* ==========================================================================
@@ -832,6 +833,16 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 .cta h2 { font-size: clamp(34px, 4.4vw, 48px); color: var(--paper); margin-bottom: 14px; }
 .cta p { color: rgba(245, 241, 234, 0.86); margin: 0 0 32px; }
 .cta__actions { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+/* Both actions share one width so their edges line up in the stack. The fill
+   still carries the hierarchy: clay solid for the primary, paper outline for
+   the secondary — only the geometry is equalised. */
+.cta__actions .btn {
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+}
 
 @media (min-width: 900px) { .cta__inner { padding: 88px 64px; } }
 
