@@ -116,7 +116,28 @@
       openLightbox(index < 0 ? 0 : index);
     });
   }
-  document.querySelectorAll('.gallery__preview .gallery__tile').forEach(bindTile);
+
+  /* A tile's grid footprint follows its photo's orientation (see styles.css):
+     portrait photos get a tall two-row cell, landscape ones a wide two-column
+     cell. Every tile starts marked portrait — all but the kitchen are — and is
+     corrected from the file's own pixels as soon as it decodes, so a photo
+     swapped in later sorts itself out without touching the markup. */
+  function setOrientation(tile, img) {
+    var portrait = img.naturalHeight >= img.naturalWidth;
+    tile.classList.toggle('is-portrait', portrait);
+    tile.classList.toggle('is-landscape', !portrait);
+  }
+  function trackOrientation(tile) {
+    var img = tile.querySelector('img');
+    if (!img) return;
+    if (img.complete && img.naturalWidth) setOrientation(tile, img);
+    else img.addEventListener('load', function () { setOrientation(tile, img); });
+  }
+
+  document.querySelectorAll('.gallery__preview .gallery__tile').forEach(function (tile) {
+    bindTile(tile);
+    trackOrientation(tile);
+  });
 
   /* ---------- Expandable inline gallery (remaining 13 photos) ---------- */
   var PREVIEW = ['Kitchen-1.jpg', 'Living-dining-1.jpg', 'Bedrooms-1.jpg', 'Spiral-staircase.jpg', 'Bathroom-2.jpg'];
@@ -130,13 +151,14 @@
 
   EXTRA.forEach(function (file, i) {
     var tile = document.createElement('button');
-    tile.className = 'gallery__tile' + (i % 5 === 0 ? ' gallery__tile--wide' : '');
+    tile.className = 'gallery__tile is-portrait' + (i % 5 === 0 ? ' gallery__tile--wide' : '');
     tile.setAttribute('data-photo', file);
     tile.setAttribute('aria-label', 'Open photo ' + file.replace('.jpg', '').replace(/-/g, ' '));
     // Staggered fade + slide-up when the section expands
     tile.style.transitionDelay = (i * 35) + 'ms';
     tile.innerHTML = '<img src="' + src(file) + '" alt="Apartment photo" loading="lazy">';
     bindTile(tile);
+    trackOrientation(tile);
     extraGrid.appendChild(tile);
   });
 
@@ -242,9 +264,9 @@
     var y = window.pageYOffset;
     header.classList.toggle('is-scrolled', y > 8);
     /* Very slow parallax: the photo drifts at ~6% of scroll speed, capped
-       inside the 6% overscan of its frame so no edge is ever exposed. */
+       inside the 20px of overscan its frame carries so no edge is exposed. */
     if (heroImg && !reduceMotion) {
-      var shift = Math.max(-40, Math.min(40, y * 0.06));
+      var shift = Math.max(-18, Math.min(18, y * 0.06));
       heroImg.style.transform = 'translate3d(0,' + shift + 'px,0)';
     }
     ticking = false;
