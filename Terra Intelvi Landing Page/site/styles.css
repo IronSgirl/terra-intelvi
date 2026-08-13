@@ -323,23 +323,18 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 .hero__cta { margin: 24px 0 0; }
 
 .hero__figure { text-align: center; margin-top: 28px; }
-/* Desktop only (>=1224px): the frame breaks outside the 1104px text column so
-   the photo reads as a wide band. Equal negative margins do the centring — the
-   container's content width (a fixed 1104px in this range) minus the target
-   frame width, halved, on each side.
-      --hero-frame-w tracks the page: 84vw up to ~1500px, then it slows to
-      26vw + 780px and stops at 1260px, so it never chases an ultrawide.
-      1280 -> 1075px   1440 -> 1210px   1600 -> 1260px   >=1920 -> 1260px
-   These are down from 93.75vw / 1600px, and the width is the whole point: the
-   frame's height is capped by the fold (~580px on a 1440x900 laptop) and the
-   photo inside it is 2.16:1, so every pixel of frame width is a pixel the
-   photo has to pay for in height it doesn't have. At 1350px wide the bedroom
-   could only be shown as a close-up of the duvet. A 1210px frame is the widest
-   that still leaves the whole room inside the waves — see the fit rules below.
-   Width only: no height, no clip-path, nothing below 1224px. */
+/* Desktop only (>=1224px): the frame breaks well outside the 1104px text column
+   so the photo reads as a full-bleed-ish band. Equal negative margins do the
+   centring — the container's content width (a fixed 1104px in this range) minus
+   the target frame width, halved, on each side.
+      --hero-frame-w tracks the page: 93.75vw up to 1440px, then it slows to
+      31.25vw + 900px and stops at 1500px, so it never chases an ultrawide.
+      1280 -> 1200px   1440 -> 1350px   1600 -> 1400px   >=1920 -> 1500px
+   Side margin is 3.125vw (40px) at its tightest, so the blob never reaches the
+   page edge. Width only: no height, no clip-path, nothing below 1224px. */
 @media (min-width: 1224px) {
   .hero__figure {
-    --hero-frame-w: min(84vw, 26vw + 780px, 1260px);
+    --hero-frame-w: min(93.75vw, 31.25vw + 900px, 1600px);
     margin-left: calc((100% - var(--hero-frame-w)) / 2);
     margin-right: calc((100% - var(--hero-frame-w)) / 2);
   }
@@ -370,11 +365,12 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   overflow: hidden;
   background: var(--card);
 }
-/* Phone sizing, and the base the desktop block below overrides. Oversized 20px
-   top and bottom so the parallax shift never uncovers an edge; the drift is
-   capped at 18px in script.js to stay inside it. Desktop doesn't need the
-   overscan — the photo sits inside the frame there, with fill behind it — so
-   it replaces these box values outright. */
+/* Oversized 20px top and bottom so the parallax shift never uncovers an edge;
+   the drift is capped at 18px in script.js to stay inside it. The slack used
+   to be 6% of the frame, which on a wide screen came to ~90px of extra height
+   the photo had to fill — and every one of those pixels is paid for sideways
+   by `cover`. A flat 20px is enough for the drift at any frame size and costs
+   the crop almost nothing. */
 .hero__figure-inner img {
   position: absolute;
   top: -20px;
@@ -386,73 +382,19 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   will-change: transform;
 }
 
-/* Desktop: the photo is laid inside the blob, not stretched across it.
-   Two things were eating the bedroom, and only one of them was the fit:
-   1. `cover`. hero-main.jpg is 2400x1109 — 2.16:1 — and the frame is wider
-      than that, so cover scaled the photo up until it filled the width and
-      threw the overflow away. The overflow is what makes the shot: the
-      nightstand and lamp on the left edge, the curtain on the right.
-   2. The clip path. Its bottom edge runs between y=0.72 and y=0.88 and its top
-      between y=0.02 and y=0.19, so the blob's outer ~15% is a wave, not a
-      rectangle. A photo drawn edge to edge loses whatever the wave crosses —
-      which is exactly where the headboard's top and the foot of the bed are.
-   So the photo is drawn at 82% of the frame's height, 6% down from its top,
-   and centred: the whole 2.16:1 frame is there, and the waves get the margin
-   around it to chew on instead of the room. The overlap that's left is
-   deliberate — pull the photo in any further and it stops touching the waves
-   at all, and the blob reads as a rectangle on a shape instead of one shape.
-      Whatever the photo doesn't fill shows the wrapper's fill, set to the wall
-   tone behind the bed so the seam doesn't read as a letterbox bar.
-      The height cap is the other half of the sizing: because the photo is
-   measured off the frame's height, a frame that gets tall without getting wide
-   (a big screen, where the width is capped at 1260px) would push the photo
-   wider than the frame and cut the sides off again — the nightstand first.
-   0.54 x width is the tallest the frame can be before that happens:
-   0.82 x 0.54 x 2.164 = 0.958 of the width, so the photo still clears the
-   frame's own edges. It only binds above ~1700px; below that the fold budget
-   is still the smallest term. Between 720 and 1223px --hero-frame-w isn't set
-   by the breakout rule, so it's given the plain container width here. */
-@media (min-width: 720px) and (max-width: 1223px) {
-  .hero__figure { --hero-frame-w: calc(min(1200px, 100vw) - 96px); }
-}
-@media (min-width: 720px) {
+/* The frame never grows taller than the 2.16:1 photo can fill. Desktop-only
+   because --hero-frame-w only exists there; past roughly width/2.15 (the
+   photo's own ratio, plus the 40px of parallax slack) `cover` starts eating
+   the sides, which is what had reduced the bedroom to a close-up of the duvet
+   on wide screens. Below ~1330px of frame width the fold budget above is still
+   the binding term, so laptops keep the height they had plus the 20px. */
+@media (min-width: 1224px) {
   .hero__figure-inner {
     max-height: min(
       748px,
       max(200px, calc(1.2 * (100vh - 400px) - 20px)),
-      calc(var(--hero-frame-w) * 0.54)
+      calc(var(--hero-frame-w) / 2.15)
     );
-    /* The wall behind the bed: gaps read as more room, not as a bar. */
-    background: #E8E4DF;
-  }
-  .hero__figure-inner img {
-    /* The element is given the photo's own 2400x1109 ratio and centred, so
-       `cover` has nothing to crop — box and photo are the same shape — and the
-       element's edges are the photo's edges, which is what the mask below
-       needs. Sized from the height because the height is the scarce one. */
-    top: 6%;
-    left: 0;
-    right: 0;
-    margin-inline: auto;
-    width: auto;
-    height: 82%;
-    aspect-ratio: 2400 / 1109;
-    object-fit: cover;
-    object-position: center center;
-    /* Feathered edges. Inset inside the blob, the photo would otherwise meet
-       the fill along a hard straight line wherever a wave doesn't cross it —
-       a rectangle pasted on a blob, most visible on the right where the bright
-       curtain runs into the wall tone. A ~3% fade on each side lets it dissolve
-       into the fill instead. Two gradients, intersected, so all four sides
-       fade; where a browser drops the mask the layout is unchanged. */
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%),
-      linear-gradient(to bottom, transparent 0, #000 4%, #000 96%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent 0, #000 3%, #000 97%, transparent 100%),
-      linear-gradient(to bottom, transparent 0, #000 4%, #000 96%, transparent 100%);
-    mask-composite: intersect;
   }
 }
 
@@ -578,21 +520,19 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 
 /* Desktop: a masonry-ish grid built out of the photos' own shapes.
    All but one of the apartment photos are shot 9:16, so the row unit is half a
-   tile: a portrait photo takes two rows (341 x 340 in the 1104px column) and a
-   landscape one takes two columns (702 x 340). `cover` only shaves the edges
+   tile: a portrait photo takes two rows (341 x 380 in the 1104px column) and a
+   landscape one takes two columns (702 x 380). `cover` only shaves the edges
    instead of throwing away half the frame — and nothing is ever stretched.
-      The row unit is 160px, down from 220px in two steps: two tile rows of
-   preview now cost 700px instead of 940px, which is what brings the last row
-   and the "View all 18 photos" button onto the same screen. Portrait tiles
-   land at 341x340 in the 1104px column — still square-ish enough that `cover`
-   only shaves a 9:16 photo's top and bottom rather than gutting it.
+      The row unit is 180px, down 18% from 220px: two tile rows of preview now
+   cost 780px instead of 940px, which is what brings the last row and the
+   "View all 18 photos" button onto the same screen.
       The orientation classes are set from each file's own pixels in script.js;
    .gallery__tile--large is the hand-placed kitchen tile in the preview. */
 @media (min-width: 720px) {
   .gallery__preview,
   .gallery__extra-grid {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 160px;
+    grid-auto-rows: 180px;
     grid-auto-flow: dense;
     gap: 20px;
   }
