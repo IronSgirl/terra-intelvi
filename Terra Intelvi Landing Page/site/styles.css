@@ -356,8 +356,9 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   position: relative;
   width: 100%;
   height: 80vh;
-  /* 768 -> 788 and +20px on the fold term: 20px more room for the photo. */
-  max-height: min(788px, max(200px, calc(1.2 * (100vh - 400px) + 20px)));
+  /* 788 -> 748 and -20px on the fold term: the frame gives back ~40px so more
+     of the page (and less of a close-up crop) shows on first load. */
+  max-height: min(748px, max(200px, calc(1.2 * (100vh - 400px) - 20px)));
   /* Organic wavy blob: irregular flowing edges on all four sides.
      No radius or shadow — a clip-path would crop both anyway. */
   clip-path: url(#heroWave);
@@ -390,8 +391,8 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 @media (min-width: 1224px) {
   .hero__figure-inner {
     max-height: min(
-      788px,
-      max(200px, calc(1.2 * (100vh - 400px) + 20px)),
+      748px,
+      max(200px, calc(1.2 * (100vh - 400px) - 20px)),
       calc(var(--hero-frame-w) / 2.15)
     );
   }
@@ -519,17 +520,19 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 
 /* Desktop: a masonry-ish grid built out of the photos' own shapes.
    All but one of the apartment photos are shot 9:16, so the row unit is half a
-   tile: a portrait photo takes two rows (341 x 460 in the 1104px column) and a
-   landscape one takes two columns (702 x 460). Both land within a few percent
-   of their native aspect, so `cover` only shaves the edges instead of throwing
-   away half the frame — and nothing is ever stretched.
+   tile: a portrait photo takes two rows (341 x 380 in the 1104px column) and a
+   landscape one takes two columns (702 x 380). `cover` only shaves the edges
+   instead of throwing away half the frame — and nothing is ever stretched.
+      The row unit is 180px, down 18% from 220px: two tile rows of preview now
+   cost 780px instead of 940px, which is what brings the last row and the
+   "View all 18 photos" button onto the same screen.
       The orientation classes are set from each file's own pixels in script.js;
    .gallery__tile--large is the hand-placed kitchen tile in the preview. */
 @media (min-width: 720px) {
   .gallery__preview,
   .gallery__extra-grid {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 220px;
+    grid-auto-rows: 180px;
     grid-auto-flow: dense;
     gap: 20px;
   }
