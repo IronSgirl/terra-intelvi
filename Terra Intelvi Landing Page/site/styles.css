@@ -392,12 +392,17 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
   /* Small margin because the blob's wavy bottom edge already leaves ~40px of
      optical space inside the frame */
   .hero__cta { order: 1; margin-top: 8px; }
-  /* Taller 4:3 frame on phones. height:auto hands sizing back to the aspect
-     ratio — the desktop 80vh/640px budget would crop it. */
+  /* Portrait frame on phones: a 9:16 photo in the tall twin of the blob.
+     Sized from the viewport rather than an aspect ratio so the photo always
+     lands at just over half a screen whatever the phone's width — svh is the
+     stable unit here, because vh includes the URL bar and shifts mid-scroll.
+     max-height is lifted so the desktop 80vh/768px budget can't crop it. */
   .hero__figure-inner {
-    aspect-ratio: 4 / 3;
-    height: auto;
+    aspect-ratio: auto;
+    height: 56vh;
+    height: 56svh;
     max-height: none;
+    clip-path: url(#heroWaveTall);
   }
   .hero__figure { margin-top: 24px; }
 }
@@ -870,4 +875,114 @@ section.container { margin: 0 auto; padding: var(--section-pad) 48px; }
 
 @media (min-width: 720px) {
   .footer__inner { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+
+/* ==========================================================================
+   10. Phone refinements
+   Everything below is phone-only and deliberately last in the file, so each
+   rule wins on source order against the base it overrides without needing
+   !important or inflated selectors. Nothing here exists above 719px.
+   ========================================================================== */
+@media (max-width: 719px) {
+
+  /* ---------- Info tags: centred under the fact cards ----------
+     The row is a wrapping flex line, so centring needs both axes: the flex
+     alignment centres the chips, text-align centres a chip whose own label
+     wraps onto a second line. */
+  .tags {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* ---------- Reviews: the two notes become a swipe carousel ----------
+     Flex + scroll-snap, no JS. The track is a child of the padded container,
+     so its overflow is contained and the document itself never scrolls
+     sideways — the one failure mode that shifts every section on a phone. */
+  .reviews__side {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;      /* equal-height cards; the base rule says start */
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    /* Room for the cards' shadow, which a clipped scroll port would shave off */
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .reviews__side::-webkit-scrollbar { display: none; }
+
+  /* 86% leaves the next card visibly peeking at the right edge — the only
+     affordance telling a thumb there is more to the side. */
+  .review-note {
+    flex: 0 0 86%;
+    min-width: 0;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    background: var(--card);
+    padding: 20px 22px 24px;
+    box-shadow: 0 14px 28px -24px rgba(43, 38, 33, 0.55);
+  }
+
+  /* The lead quote's mark, scaled to a note. Decorative, so it is generated
+     content and stays out of the text a screen reader announces. */
+  .review-note::before {
+    content: '\201C';
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 58px;
+    line-height: 0.55;
+    color: var(--clay);
+    margin-bottom: 16px;
+  }
+
+  /* margin-top:auto pins the attribution to the bottom of the taller card, so
+     the two footers sit on one line as you swipe between them. */
+  .review-note footer {
+    margin-top: auto;
+    padding-top: 22px;
+  }
+
+  /* A card parked off to the side of the scroll port is clipped, so the
+     IntersectionObserver that drives .fade-up may never see it and it would
+     stay at opacity 0 until swiped. Inside the carousel the entrance is
+     dropped rather than risked. */
+  .reviews__side .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* ---------- Book your stay: more air, and a clear break before the footer ---------- */
+  #book.container {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .cta__inner { padding: 60px 22px; }
+  /* The buttons are measured against the card, not against the inner text
+     column, so the row first cancels .cta__inner's side padding. Without this
+     the 84% compounds with that padding and the buttons come out near 70% —
+     visibly narrower than the heading they sit under. The card clips its own
+     overflow, so these negative margins can't reach the document. */
+  .cta__actions {
+    margin-left: -22px;
+    margin-right: -22px;
+  }
+  /* Inset from the card edge rather than filling it, so the buttons read as
+     objects on the photo instead of bands across it. */
+  .cta__actions .btn {
+    width: 84%;
+    max-width: 320px;
+  }
+
+  /* The footer already carries a hairline; the extra space above it is what
+     turns that line into a section break rather than a divider. */
+  .footer__inner {
+    padding-top: 44px;
+    padding-bottom: 40px;
+  }
 }

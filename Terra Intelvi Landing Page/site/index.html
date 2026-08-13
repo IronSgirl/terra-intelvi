@@ -72,10 +72,30 @@
                           M 0.05,0.1939 C 0.0125,0.051 0.1083,0.0204 0.2083,0.0918 C 0.2833,0.1469 0.3333,0.0408 0.3917,0.0653 C 0.4333,0.0857 0.45,0.1939 0.5,0.1939 C 0.55,0.1939 0.5667,0.0857 0.6083,0.0653 C 0.6667,0.0408 0.7167,0.1469 0.7917,0.0918 C 0.8917,0.0204 0.99,0.051 0.9567,0.1939 C 0.975,0.3469 0.9417,0.4388 0.9667,0.5612 C 0.99,0.6939 0.9333,0.8469 0.825,0.7857 C 0.7333,0.7347 0.6667,0.8735 0.5583,0.8122 C 0.45,0.751 0.4,0.8816 0.2917,0.8204 C 0.1833,0.7592 0.1083,0.8571 0.06,0.7184 C 0.0183,0.5918 0.065,0.4898 0.0367,0.3878 C 0.015,0.2857 0.0183,0.2857 0.05,0.1939 Z"></animate>
               </path>
             </clipPath>
+            <!-- Portrait twin of the blob above, for the phone hero. The landscape
+                 path stretched into a tall frame turns its side bumps into long
+                 smears, so the vertical frame gets its own path: the waves run
+                 down the left and right edges instead of across the top and
+                 bottom. Same 7s breathing morph, same segment structure (M + 11
+                 cubics + Z) so the two keyframes interpolate cleanly. -->
+            <clipPath id="heroWaveTall" clipPathUnits="objectBoundingBox">
+              <path d="M 0.5,0.02 C 0.68,0.02 0.72,0.1 0.86,0.14 C 0.97,0.175 1,0.28 0.965,0.4 C 0.94,0.5 0.99,0.58 0.965,0.68 C 0.94,0.79 0.97,0.9 0.85,0.935 C 0.72,0.975 0.66,0.99 0.5,0.985 C 0.34,0.99 0.28,0.975 0.15,0.935 C 0.03,0.9 0.06,0.79 0.035,0.68 C 0.01,0.58 0.06,0.5 0.035,0.4 C 0,0.28 0.03,0.175 0.14,0.14 C 0.28,0.1 0.32,0.02 0.5,0.02 Z">
+                <animate attributeName="d" dur="7s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"
+                  values="M 0.5,0.02 C 0.68,0.02 0.72,0.1 0.86,0.14 C 0.97,0.175 1,0.28 0.965,0.4 C 0.94,0.5 0.99,0.58 0.965,0.68 C 0.94,0.79 0.97,0.9 0.85,0.935 C 0.72,0.975 0.66,0.99 0.5,0.985 C 0.34,0.99 0.28,0.975 0.15,0.935 C 0.03,0.9 0.06,0.79 0.035,0.68 C 0.01,0.58 0.06,0.5 0.035,0.4 C 0,0.28 0.03,0.175 0.14,0.14 C 0.28,0.1 0.32,0.02 0.5,0.02 Z;
+                          M 0.5,0.035 C 0.66,0.015 0.75,0.09 0.87,0.125 C 0.985,0.16 0.98,0.3 0.955,0.415 C 0.93,0.52 0.975,0.6 0.95,0.695 C 0.925,0.8 0.955,0.885 0.83,0.945 C 0.7,0.985 0.65,0.97 0.5,0.975 C 0.35,0.98 0.29,0.99 0.16,0.945 C 0.045,0.885 0.075,0.8 0.05,0.695 C 0.025,0.6 0.07,0.52 0.045,0.415 C 0.02,0.3 0.015,0.16 0.13,0.125 C 0.25,0.09 0.34,0.015 0.5,0.035 Z;
+                          M 0.5,0.02 C 0.68,0.02 0.72,0.1 0.86,0.14 C 0.97,0.175 1,0.28 0.965,0.4 C 0.94,0.5 0.99,0.58 0.965,0.68 C 0.94,0.79 0.97,0.9 0.85,0.935 C 0.72,0.975 0.66,0.99 0.5,0.985 C 0.34,0.99 0.28,0.975 0.15,0.935 C 0.03,0.9 0.06,0.79 0.035,0.68 C 0.01,0.58 0.06,0.5 0.035,0.4 C 0,0.28 0.03,0.175 0.14,0.14 C 0.28,0.1 0.32,0.02 0.5,0.02 Z"></animate>
+              </path>
+            </clipPath>
           </defs>
         </svg>
         <div class="hero__figure-inner">
-          <img src="images/stock/hero-lake.jpg" alt="Lake Como seen from the mountains above Valle d'Intelvi">
+          <!-- Phones get a portrait bedroom frame instead of the landscape lake:
+               a 9:16 photo in a tall blob. The breakpoint here must stay in step
+               with the one in styles.css that swaps the clip path. -->
+          <picture>
+            <source media="(max-width: 719px)" srcset="images/stock/hero-mob.jpg">
+            <img src="images/stock/hero-lake.jpg" alt="Terra Intelvi in Valle d'Intelvi, between Lake Como and Lake Lugano">
+          </picture>
         </div>
       </div>
     </section>
