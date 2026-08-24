@@ -149,14 +149,19 @@
   var moreLabel = document.getElementById('view-all-label');
   var expanded  = false;
 
+  function describePhoto(file) {
+    var name = file.replace('.jpg', '').replace(/-/g, ' ');
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
   EXTRA.forEach(function (file, i) {
     var tile = document.createElement('button');
     tile.className = 'gallery__tile is-portrait' + (i % 5 === 0 ? ' gallery__tile--wide' : '');
     tile.setAttribute('data-photo', file);
-    tile.setAttribute('aria-label', 'Open photo ' + file.replace('.jpg', '').replace(/-/g, ' '));
+    tile.setAttribute('aria-label', 'Open photo ' + describePhoto(file));
     // Staggered fade + slide-up when the section expands
     tile.style.transitionDelay = (i * 35) + 'ms';
-    tile.innerHTML = '<img src="' + src(file) + '" alt="Apartment photo" loading="lazy">';
+    tile.innerHTML = '<img src="' + src(file) + '" alt="' + describePhoto(file) + '" loading="lazy">';
     bindTile(tile);
     trackOrientation(tile);
     extraGrid.appendChild(tile);
